@@ -3,6 +3,7 @@ package com.example.demo.src.user;
 
 import com.example.demo.config.BaseException;
 
+import com.example.demo.src.user.model.GetUserRes;
 import com.example.demo.src.user.model.PatchUserReq;
 import com.example.demo.src.user.model.PostUserReq;
 import com.example.demo.src.user.model.PostUserRes;
@@ -33,7 +34,54 @@ public class UserService {
 
     }
 
+    //회원가입
+    public PostUserRes creatUser(PostUserReq postUserReq) throws BaseException {
+        //이메일 중복 확인
+        if(userProvider.checkEmail(postUserReq.getUser_id()) == 1)
+            throw new BaseException(POST_USERS_EXISTS_EMAIL);
 
+        //닉네임 중복 확인
+        if(userProvider.checkNickname(postUserReq.getUser_nickname()) == 1)
+            throw new BaseException(POST_USERS_EXISTS_NICKNAME);
+
+        String password;
+
+        try {
+            //비밀번호 암호화
+            password = new SHA256().encrypt(postUserReq.getUser_pwd());
+            postUserReq.setUser_pwd(password);
+        } catch (Exception ignored) {
+            throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
+        }
+
+        try {
+            int userIdx = userDao.createUser(postUserReq);
+
+            //jwt 발급
+            String jwt = jwtService.createJwt(userIdx);
+            return new PostUserRes(jwt, userIdx);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    //로그인
+    public void loginUser(GetUserRes getUserRes) throws BaseException {
+        try {
+            String password;
+
+            password = new SHA256().encrypt(getUserRes.getUser_pwd());
+
+            String check = userdao.loginUser(getUserRes.getUser_id());
+
+            if (!password.equals(check))
+                throw new BaseException(USERS_ERROR_USER_PASSWORD);
+        } catch (Exception exception)
+            throw new BaseException(DATABASE_ERROR);
+    }
+
+
+    /*
     public PostUserRes createUser(PostUserReq postUserReq) throws BaseException {
         // 이메일 중복 확인
         if(userProvider.checkEmail(postUserReq.getEmail()) ==1){
@@ -68,5 +116,5 @@ public class UserService {
             throw new BaseException(DATABASE_ERROR);
         }
     }
-
+   */
 }

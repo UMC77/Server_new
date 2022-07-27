@@ -9,8 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import static com.example.demo.config.BaseResponseStatus.POST_USERS_EMPTY_EMAIL;
-import static com.example.demo.config.BaseResponseStatus.POST_USERS_INVALID_EMAIL;
+import static com.example.demo.config.BaseResponseStatus.*;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 @RestController
@@ -34,15 +33,63 @@ public class UserController {
         this.jwtService = jwtService;
     }
 
+    //회원가입
+
+    @RequestMapping
+    @PostMapping("/signup")
+    public BaseResponse<PostUserRes> createUser(@RequestBody PostUserReq postUserReq) {
+        //이메일 공백 체크
+        if(postUserReq.getUser_id() == null)
+            return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
+
+        //이메일 중복 체크
+        if(!isRegexEmail(postUserReq.getUser_id()))
+                return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
+
+        //비밀번호 공백 체크
+        if(postUserReq.getUser_pwd() == null)
+            return new BaseResponse<>(POST_USERS_EMPTY_PASSWORD);
+
+        //닉네임 공백 체크
+        if(postUserReq.getUser_nickname() == null)
+            return new BaseResponse<>(POST_USERS_EMPTY_NICKNAME);
+
+        //전화번호 공백 체크
+        if(postUserReq.getUser_phone() == null)
+            return new BaseResponse<>(POST_USERS_EMPTY_PHONENUM);
+
+        try{
+            PostUserRes postUserRes = userService.createUser(postUserReq);
+            return new BaseResponse<>(postUserRes);
+        } catch (BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 
 
-    /**
-     * 회원 조회 API
-     * [GET] /users
-     * 이메일 검색 조회 API
-     * [GET] /users? Email=
-     * @return BaseResponse<GetUserRes>
-     */
+    //로그인
+
+    @ResponseBody
+    @GetMapping("/login")
+    public BaseResponse<String> loginUsers(@RequestBody GetUserRes getUserRes){
+        //이메일 공백 체크
+        if(getUserRes.getUser_id() == null)
+            return new BaseResponse<>(USERS_EMPTY_USER_ID);
+
+        //비밀번호 공백 체크
+        if(getUserRes.getUser_pwd() == null)
+          return new BaseResponse<>(USERS_EMPTY_USER_PASSWORD);
+
+        try {
+            userService.loginUser(getUserRes);
+            String str = "로그인에 성공했습니다.";
+            return new BaseResponse<>(str);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+    /*
+
     //Query String
     @ResponseBody
     @GetMapping("") // (GET) 127.0.0.1:9000/users
@@ -75,12 +122,7 @@ public class UserController {
         }
     }
 
-    /**
-     * 회원가입 API
-     * [POST] /users
-     * @return BaseResponse<PostUserRes>
-     */
-    // Body
+
     @ResponseBody
     @PostMapping("") // (POST) 127.0.0.1:9000/users
     public BaseResponse<PostUserRes> createUser(@RequestBody PostUserReq postUserReq) {
@@ -100,23 +142,18 @@ public class UserController {
         }
     }
 
-    /**
-     * 유저정보변경 API
-     * [PATCH] /users/:userIdx
-     * @return BaseResponse<String>
-     */
     @ResponseBody
     @PatchMapping("/{userIdx}") // (PATCH) 127.0.0.1:9000/users/:userIdx
     public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody User user){
         try {
-            /* TODO: jwt는 다음주차에서 배울 내용입니다!
+             TODO: jwt는 다음주차에서 배울 내용입니다!
             jwt에서 idx 추출.
             int userIdxByJwt = jwtService.getUserIdx();
             userIdx와 접근한 유저가 같은지 확인
             if(userIdx != userIdxByJwt){
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
-            */
+
 
             PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getNickName());
             userService.modifyUserName(patchUserReq);
@@ -127,5 +164,5 @@ public class UserController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
-
+    */
 }

@@ -27,6 +27,7 @@ public class UserProvider {
         this.jwtService = jwtService;
     }
 
+    /*
 
     public GetUserRes getUsersByEmail(String email) throws BaseException{
         try{
@@ -36,7 +37,7 @@ public class UserProvider {
         catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
-                    }
+    }
 
 
     public GetUserRes getUsersByIdx(int userIdx) throws BaseException{
@@ -58,6 +59,6 @@ public class UserProvider {
         }
     }
 
-
+  */
 
 }
