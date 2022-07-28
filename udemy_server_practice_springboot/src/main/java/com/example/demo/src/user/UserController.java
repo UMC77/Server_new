@@ -71,23 +71,88 @@ public class UserController {
 
     @ResponseBody
     @GetMapping("/login")
-    public BaseResponse<String> loginUsers(@RequestBody GetUserRes getUserRes){
+    public BaseResponse<String> loginUsers(@RequestBody GetUserReq getUserReq){
         //이메일 공백 체크
-        if(getUserRes.getUser_id() == null)
+        if(getUserReq.getUser_id() == null)
             return new BaseResponse<>(USERS_EMPTY_USER_ID);
 
         //비밀번호 공백 체크
-        if(getUserRes.getUser_pwd() == null)
+        if(getUserReq.getUser_pwd() == null)
           return new BaseResponse<>(USERS_EMPTY_USER_PASSWORD);
 
         try {
-            userService.loginUser(getUserRes);
+            userService.loginUser(getUserReq);
             String str = "로그인에 성공했습니다.";
             return new BaseResponse<>(str);
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+
+    //비밀번호 변경
+
+    @ResponseBody
+    @GetMapping("/modifypwd")
+    public BaseResponse<PatchPwdRes> modifyPwd(@RequestBody PatchPwdReq patchPwdReq) {
+        //아이디 공백 체크
+        if(patchPwdReq.getUser_id()== null)
+            return new BaseResponse<>(USERS_EMPTY_USER_ID);
+
+        //바꿀 비밀번호 공백 체크
+        if(patchPwdReq.getUser_modify_pwd() == null)
+            return new BaseResponse<>(PACTH_USERS_EMPTY_MODIFY_PASSWORD);
+
+        try {
+            PatchPwdRes patchPwdRes = userService.modifyPwd(patchPwdReq);
+            return new BaseResponse<>(patchPwdRes);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    //닉네임 변경
+    @ResponseBody
+    @GetMapping("/modifynickname")
+    public BaseResponse<String> modifyPwd(@RequestBody PatchNicknameReq patchNicknameReq) {
+        //아이디 공백 체크
+        if(patchNicknameReq.getUser_id()== null)
+            return new BaseResponse<>(USERS_EMPTY_USER_ID);
+
+        //바꿀 닉네임 공백 체크
+        if(patchNicknameReq.getUser_modify_nickname() == null)
+            return new BaseResponse<>(POST_USERS_EMPTY_NICKNAME);
+
+        try {
+            userService.modifyNickname(patchNicknameReq);
+            String str = "닉네임이 성공적으로 변경되었습니다.";
+            return new BaseResponse<>(str);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    //프로필 변경
+    @ResponseBody
+    @GetMapping("/modifyprofile")
+    public BaseResponse<String> modifyProfile(@RequestBody PatchProfileReq patchProfileReq) {
+        //아이디 공백 체크
+        if(patchProfileReq.getUser_id()== null)
+            return new BaseResponse<>(USERS_EMPTY_USER_ID);
+
+        //바꿀 닉네임 공백 체크
+        if(patchProfileReq.getUser_modify_profile() == null)
+            return new BaseResponse<>(PATCH_USERS_EMPTY_MODIFY_PROFILE);
+
+        try {
+            userService.modifyProfile(patchProfileReq);
+            String str = "프로필이 성공적으로 변경되었습니다.";
+            return new BaseResponse<>(str);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
     /*
 
     //Query String

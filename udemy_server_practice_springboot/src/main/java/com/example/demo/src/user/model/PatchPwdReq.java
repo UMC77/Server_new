@@ -7,10 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PostUserReq {
+public class PatchPwdReq {
     private String user_id;
-    private String user_pwd;
-    private String user_phone;
-    private String user_nickname;
-    private String user_profile;
+    private String user_modify_pwd;
 }

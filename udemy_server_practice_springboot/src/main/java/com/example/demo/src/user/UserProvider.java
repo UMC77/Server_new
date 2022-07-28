@@ -2,7 +2,6 @@ package com.example.demo.src.user;
 
 
 import com.example.demo.config.BaseException;
-import com.example.demo.src.user.model.GetUserRes;
 import com.example.demo.utils.JwtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +26,26 @@ public class UserProvider {
         this.jwtService = jwtService;
     }
 
+    public int checkEmail(String email) throws BaseException{
+        try{
+            return userDao.checkEmail(email);
+        } catch (Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public int checkNickname(String nickname) throws BaseException {
+        try {
+            return userDao.checkNickname(nickname);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+    }
+
+
+
+
     /*
 
     public GetUserRes getUsersByEmail(String email) throws BaseException{
@@ -50,14 +69,6 @@ public class UserProvider {
         }
     }
 
-
-    public int checkEmail(String email) throws BaseException{
-        try{
-            return userDao.checkEmail(email);
-        } catch (Exception exception){
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
 
   */
 

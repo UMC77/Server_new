@@ -1,7 +1,7 @@
 package com.example.demo.src.user;
 
 
-import com.example.demo.src.user.model.GetUserRes;
+import com.example.demo.src.user.model.GetUserReq;
 import com.example.demo.src.user.model.PatchUserReq;
 import com.example.demo.src.user.model.PostUserReq;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,10 @@ public class UserDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<GetUserRes> getUsers(){
+    public List<GetUserReq> getUsers(){
         String getUsersQuery = "select userIdx,name,nickName,email from User";
         return this.jdbcTemplate.query(getUsersQuery,
-                (rs,rowNum) -> new GetUserRes(
+                (rs,rowNum) -> new GetUserReq(
                         rs.getInt("userIdx"),
                         rs.getString("name"),
                         rs.getString("nickName"),
@@ -32,11 +32,11 @@ public class UserDao {
                 ));
     }
 
-    public GetUserRes getUsersByEmail(String email){
+    public GetUserReq getUsersByEmail(String email){
         String getUsersByEmailQuery = "select userIdx,name,nickName,email from User where email=?";
         String getUsersByEmailParams = email;
         return this.jdbcTemplate.queryForObject(getUsersByEmailQuery,
-                (rs, rowNum) -> new GetUserRes(
+                (rs, rowNum) -> new GetUserReq(
                         rs.getInt("userIdx"),
                         rs.getString("name"),
                         rs.getString("nickName"),
@@ -45,11 +45,11 @@ public class UserDao {
     }
 
 
-    public GetUserRes getUsersByIdx(int userIdx){
+    public GetUserReq getUsersByIdx(int userIdx){
         String getUsersByIdxQuery = "select userIdx,name,nickName,email from User where userIdx=?";
         int getUsersByIdxParams = userIdx;
         return this.jdbcTemplate.queryForObject(getUsersByIdxQuery,
-                (rs, rowNum) -> new GetUserRes(
+                (rs, rowNum) -> new GetUserReq(
                         rs.getInt("userIdx"),
                         rs.getString("name"),
                         rs.getString("nickName"),

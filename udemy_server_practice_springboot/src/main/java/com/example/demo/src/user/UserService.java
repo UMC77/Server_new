@@ -3,10 +3,7 @@ package com.example.demo.src.user;
 
 import com.example.demo.config.BaseException;
 
-import com.example.demo.src.user.model.GetUserRes;
-import com.example.demo.src.user.model.PatchUserReq;
-import com.example.demo.src.user.model.PostUserReq;
-import com.example.demo.src.user.model.PostUserRes;
+import com.example.demo.src.user.model.*;
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
 import org.slf4j.Logger;
@@ -66,19 +63,73 @@ public class UserService {
     }
 
     //로그인
-    public void loginUser(GetUserRes getUserRes) throws BaseException {
+    public void loginUser(GetUserReq getUserRes) throws BaseException {
         try {
             String password;
 
             password = new SHA256().encrypt(getUserRes.getUser_pwd());
 
-            String check = userdao.loginUser(getUserRes.getUser_id());
+            String check = userDao.loginUser(getUserRes.getUser_id());
 
             if (!password.equals(check))
                 throw new BaseException(USERS_ERROR_USER_PASSWORD);
         } catch (Exception exception)
             throw new BaseException(DATABASE_ERROR);
     }
+
+    //비밀번호 변경
+    public PatchPwdRes modifyPwd(PatchPwdReq patchPwdReq) throws BaseException {
+        //아이디의 존재 확인
+        if(userProvider.checkPwd(patchPwdReq.getUser_id()) == 0)
+            throw new BaseException(USERS_EMPTY_USER_ID);
+
+        try {
+            //비밀번호 암호화
+            String password;
+            password = new SHA256().encrypt(patchPwdReq.getUser_modify_pwd());
+            patchPwdReq.setUser_modify_pwd(password);
+        } catch (Exception ignored) {
+            throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
+        }
+
+        try {
+            int userIdx = userDao.modifyPwd(patchPwdReq);
+
+            //jwt 발급
+            String jwt = jwtService.createJwt(userIdx);
+            return new PatchPwdRes(jwt, userIdx);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    //닉네임 변경
+    public void modifyNickname(PatchNicknameReq patchNicknameReq) throws BaseException {
+        //아이디의 존재 확인
+        if(userProvider.checkEmail(patchNicknameReq.getUser_id()) == 0)
+            throw new BaseException(USERS_EMPTY_USER_ID);
+
+        try {
+            userDao.modifyNickname(patchNicknameReq.getUser_modify_nickname());
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+
+    //프로필 변경
+    public void modifyProfile(PatchProfileReq patchProfileReq) throws BaseException {
+        //아이디의 존재 확인
+        if(userProvider.checkEmail(patchProfileReq.getUser_id()) == 0)
+            throw new BaseException(USERS_EMPTY_USER_ID);
+
+        try {
+            userDao.modifyProfile(patchProfileReq.getUser_modify_profile());
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
 
 
     /*

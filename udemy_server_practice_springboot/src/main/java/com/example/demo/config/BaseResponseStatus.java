@@ -37,6 +37,10 @@ public enum BaseResponseStatus {
     POST_USERS_EMPTY_PHONENUM(false, 2021, "전화번호를 입력해주세요."),
 
 
+    // [Patch]
+    PACTH_USERS_EMPTY_MODIFY_PASSWORD(false, 2030, "변경할 비밀번호를 입력해주세요."),
+    PATCH_USERS_SAME_PASSWORD(false, 2031, "새로운 비밀번호를 입력해주세요."),
+    PATCH_USERS_EMPTY_MODIFY_PROFILE(false, 2032, "변경할 프로필을 선택해주세요."),
 
 
     /**
