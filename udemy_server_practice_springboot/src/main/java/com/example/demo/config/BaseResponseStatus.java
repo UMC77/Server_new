@@ -25,10 +25,23 @@ public enum BaseResponseStatus {
     // users
     USERS_EMPTY_USER_ID(false, 2010, "유저 아이디 값을 확인해주세요."),
 
-    // [POST] /users
-    POST_USERS_EMPTY_EMAIL(false, 2015, "이메일을 입력해주세요."),
+    //ceo
+    CEO_EMPTY_CEO_ID(false, 2011, "사장 아이디 값을 확인해주세요."),
+    CEO_EMPTY_CEO_PWD(false, 2012, "사장 비밀번호 값을 확인해주세요."),
+    CEO_ERROR_CEO_PWD(false, 2013, "비밀번호가 다릅니다."),
+
+    // [POST] /ceo
     POST_USERS_INVALID_EMAIL(false, 2016, "이메일 형식을 확인해주세요."),
-    POST_USERS_EXISTS_EMAIL(false,2017,"중복된 이메일입니다."),
+    POST_CEO_EMPTY_ID(false, 2020, "아이디를 입력해주세요."),
+    POST_CEO_EMPTY_STORE_NUM(false, 2021, "사업자등록번호를 입력해주세요."),
+    POST_CEO_EMPTY_PHONE(false, 2022, "핸드폰 번호를 입력해주세요."),
+    POST_CEO_EMPTY_PWD(false, 2023, "비밀번호를 입력해주세요."),
+    POST_CEO_EXISTS_STORE_NUM(false,2024,"중복된 사업자등록번호입니다."),
+    POST_CEO_EXISTS_CEO_ID(false,2025,"중복된 아이디입니다."),
+    POST_CEO_EXISTS_CEO_PHONE(false,2026,"중복된 핸드폰 번호입니다."),
+
+    //[PATCH] /ceo
+    PATCH_CEO_EMPTY_MODIFY_PWD(false,2027,"수정할 사장 비밀번호를 입력해주세요."),
 
 
 
@@ -50,8 +63,8 @@ public enum BaseResponseStatus {
     DATABASE_ERROR(false, 4000, "데이터베이스 연결에 실패하였습니다."),
     SERVER_ERROR(false, 4001, "서버와의 연결에 실패하였습니다."),
 
-    //[PATCH] /users/{userIdx}
-    MODIFY_FAIL_USERNAME(false,4014,"유저네임 수정 실패"),
+    //[PATCH] /ceo/{ceoIdx}
+    MODIFY_FAIL_CEO_PWD(false,4015,"사장 비밀번호 수정 실패"),
 
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),
     PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다.");
