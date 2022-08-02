@@ -11,8 +11,5 @@ import lombok.Setter;
 public class GetCeoReq {
     private int ceoId;
     private String ceoPwd;
-//    private String ceoName;
-//    private String ceoId;
-//    private String ceoPhone;
 
 }

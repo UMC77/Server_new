@@ -30,18 +30,32 @@ public enum BaseResponseStatus {
     CEO_EMPTY_CEO_PWD(false, 2012, "사장 비밀번호 값을 확인해주세요."),
     CEO_ERROR_CEO_PWD(false, 2013, "비밀번호가 다릅니다."),
 
+    //store
+    STORE_EMPTY_STORE_IDX(false, 2014, "가게 인덱스 값을 확인해주세요."),
+
     // [POST] /ceo
-    POST_USERS_INVALID_EMAIL(false, 2016, "이메일 형식을 확인해주세요."),
+//    POST_USERS_INVALID_EMAIL(false, 2016, "이메일 형식을 확인해주세요."),
+    POST_CEO_INVALID_ID(false, 2016, "아이디는 공백 없는 영대소문자 및 숫자만 허용됩니다."),
+    POST_CEO_INVALID_ID_LEN(false, 2017, "아이디는 10자 이내만 허용됩니다."),
+    POST_CEO_INVALID_PWD(false, 2018, "비밀번호는 공백 없는 영대소문자 및 숫자만 허용됩니다."),
+    POST_CEO_INVALID_PWD_LEN(false, 2019, "비밀번호는 8자 이상만 허용됩니다."),
     POST_CEO_EMPTY_ID(false, 2020, "아이디를 입력해주세요."),
     POST_CEO_EMPTY_STORE_NUM(false, 2021, "사업자등록번호를 입력해주세요."),
-    POST_CEO_EMPTY_PHONE(false, 2022, "핸드폰 번호를 입력해주세요."),
-    POST_CEO_EMPTY_PWD(false, 2023, "비밀번호를 입력해주세요."),
-    POST_CEO_EXISTS_STORE_NUM(false,2024,"중복된 사업자등록번호입니다."),
-    POST_CEO_EXISTS_CEO_ID(false,2025,"중복된 아이디입니다."),
-    POST_CEO_EXISTS_CEO_PHONE(false,2026,"중복된 핸드폰 번호입니다."),
+    POST_CEO_EMPTY_CEO_PHONE(false, 2022, "핸드폰 번호를 입력해주세요."),
+    POST_CEO_EMPTY_CEO_NAME(false, 2023, "사장님 이름을 입력해주세요."),
+    POST_CEO_EMPTY_STORE_NAME(false, 2024, "상호명을 입력해주세요."),
+    POST_CEO_EMPTY_STORE_PHONE(false, 2025, "매장 전화 번호를 입력해주세요."),
+    POST_CEO_EMPTY_ADDRESS(false, 2026, "주소를 입력해주세요."),
+    POST_CEO_EMPTY_PWD(false, 2027, "비밀번호를 입력해주세요."),
+    POST_CEO_EXISTS_STORE_NUM(false,2028,"중복된 사업자등록번호입니다."),
+    POST_CEO_EXISTS_CEO_ID(false,2029,"중복된 아이디입니다."),
+    POST_CEO_EXISTS_CEO_PHONE(false,2030,"중복된 핸드폰 번호입니다."),
 
-    //[PATCH] /ceo
-    PATCH_CEO_EMPTY_MODIFY_PWD(false,2027,"수정할 사장 비밀번호를 입력해주세요."),
+    //[PATCH]
+    // /ceo
+    PATCH_CEO_EMPTY_MODIFY_PWD(false,2050,"수정할 사장 비밀번호를 입력해주세요."),
+    // /store
+    PATCH_STORE_EMPTY_MODIFY_STORE_NAME(false,2051,"수정할 상호명을 입력해주세요."),
 
 
 

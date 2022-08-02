@@ -41,24 +41,52 @@ public class CeoController {
     public BaseResponse<PostCeoRes> createCeo(@RequestBody PostCeoReq postCeoReq) {
 
         //사업자 등록번호 공백 check
-        if(postCeoReq.getStoreNum() == null){
+        if(postCeoReq.getStoreNum() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_STORE_NUM);
-        }
 
         //아이디 공백 check
-        if(postCeoReq.getCeoId() == null){
+        if(postCeoReq.getCeoId() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_ID);
-        }
+
+        //아이디 길이 check
+        if(postCeoReq.getCeoId().length()>10)
+            return new BaseResponse<>(POST_CEO_INVALID_ID_LEN);
+
+        //아이디 영문, 숫자만 허용
+        if(!isRegexIPwd(postCeoReq.getCeoId()))
+            return new BaseResponse<>(POST_CEO_INVALID_ID);
 
         //휴대폰번호 공백 check
-        if(postCeoReq.getCeoPhone() == null){
+        if(postCeoReq.getCeoPhone() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_PHONE);
-        }
 
         //비밀번호 공백 check
-        if(postCeoReq.getPwd() == null){
+        if(postCeoReq.getPwd() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_PWD);
-        }
+
+        //비밀번호 길이 check
+        if(postCeoReq.getCeoId().length()<8)
+            return new BaseResponse<>(POST_CEO_INVALID_PWD_LEN);
+
+        //비밀번호 영문, 숫자만 허용
+        if(!isRegexIPwd(postCeoReq.getCeoPwd()))
+            return new BaseResponse<>(POST_CEO_INVALID_PWD);
+
+        //이름 공백 check
+        if(postCeoReq.getCeoName() == null)
+            return new BaseResponse<>(POST_CEO_EMPTY_CEO_NAME);
+
+        //상호 공백 check
+        if(postCeoReq.getStoreName() == null)
+            return new BaseResponse<>(POST_CEO_EMPTY_STORE_NAME);
+
+        //매장 전화번호 공백 check
+        if(postCeoReq.getStorePhone() == null)
+            return new BaseResponse<>(POST_CEO_EMPTY_STORE_PHONE);
+
+        //주소 공백 check
+        if(postCeoReq.getAddress() == null)
+            return new BaseResponse<>(POST_CEO_EMPTY_ADDRESS);
 
         try{
             PostCeoRes postCeoRes = ceoService.createCeo(postCeoReq);
@@ -81,6 +109,14 @@ public class CeoController {
         if(patchCeoPwdReq.getModifyCeoPwd()==null) {
             return new BaseResponse<>(PATCH_CEO_EMPTY_MODIFY_PWD);
         }
+
+        //수정 비밀번호 길이 check
+        if(patchCeoPwdReq.getCeoId().length()<8)
+            return new BaseResponse<>(POST_CEO_INVALID_PWD_LEN);
+
+        //수정 비밀번호 영문, 숫자만 허용
+        if(!isRegexIPwd(patchCeoPwdReq.getCeoPwd()))
+            return new BaseResponse<>(POST_CEO_INVALID_PWD);
 
         try {
             PatchCeoPwdRes patchCeoPwdRes = ceoService.modifyCeoPwd(patchCeoPwdReq);

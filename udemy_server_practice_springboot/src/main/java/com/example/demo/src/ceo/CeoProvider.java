@@ -27,38 +27,6 @@ public class CeoProvider {
         this.jwtService = jwtService;
     }
 
-
-//    public GetCeoRes getCeoByEmail(String email) throws BaseException{
-//        try{
-//            GetCeoRes getCeoRes = ceoDao.getCeoByEmail(email);
-//            return getCeoRes;
-//        }
-//        catch (Exception exception) {
-//            throw new BaseException(DATABASE_ERROR);
-//        }
-//                    }
-//
-//
-//    public GetUserRes getUsersByIdx(int userIdx) throws BaseException{
-//        try{
-//            GetUserRes getUsersRes = userDao.getUsersByIdx(userIdx);
-//            return getUsersRes;
-//        }
-//        catch (Exception exception) {
-//            throw new BaseException(DATABASE_ERROR);
-//        }
-//    }
-
-
-//    public int checkEmail(String email) throws BaseException{
-//        try{
-//            return userDao.checkEmail(email);
-//        } catch (Exception exception){
-//            throw new BaseException(DATABASE_ERROR);
-//        }
-//    }
-
-
     //사업자등록번호 존재 여부 check
     public int checkStoreNum(String storeNum) throws BaseException{
         try{
