@@ -9,5 +9,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PatchCeoPwdRes {
     private String jwt;
-    private int ceoIdx;
+    private int ceo_idx;
 }

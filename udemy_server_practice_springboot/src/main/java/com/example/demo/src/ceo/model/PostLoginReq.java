@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PostLoginReq {
-    private String ceoId;  //사장님 아이디
-    private String ceoPwd;    //비번
+    private String ceo_id;  //사장님 아이디
+    private String ceo_pwd;    //비번
 }

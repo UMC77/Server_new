@@ -37,25 +37,25 @@ public class CeoService {
     /* 회원가입 */
     public PostCeoRes createCeo(PostCeoReq postCeoReq) throws BaseException {
         // 사업자등록번호 중복 확인
-        if(ceoProvider.checkStoreNum(postCeoReq.getStoreNum()) ==1){
+        if(ceoProvider.checkStoreNum(postCeoReq.getStore_num()) ==1){
             throw new BaseException(POST_CEO_EXISTS_STORE_NUM);
         }
 
         // 아이디 중복 확인
-        if(ceoProvider.checkCeoId(postCeoReq.getCeoId()) ==1){
+        if(ceoProvider.checkCeoId(postCeoReq.getCeo_id()) ==1){
             throw new BaseException(POST_CEO_EXISTS_CEO_ID);
         }
 
         // 핸드폰 번호 중복 확인
-        if(ceoProvider.checkStoreNum(postCeoReq.getCeoPhone()) ==1){
+        if(ceoProvider.checkStoreNum(postCeoReq.getCeo_phone()) ==1){
             throw new BaseException(POST_CEO_EXISTS_CEO_PHONE);
         }
 
         String pwd;
         try{
             //비밀번호 암호화
-            pwd = new SHA256().encrypt(postCeoReq.getCeoPwd());
-            postCeoReq.setCeoPwd(pwd);
+            pwd = new SHA256().encrypt(postCeoReq.getCeo_pwd());
+            postCeoReq.setCeo_pwd(pwd);
         } catch (Exception ignored) {
             throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
         }
@@ -75,9 +75,9 @@ public class CeoService {
         try {
             String password;
 
-            password = new SHA256().encrypt(getCeoReq.getCeoPwd());
+            password = new SHA256().encrypt(getCeoReq.getCeo_pwd());
 
-            String check = ceoDao.loginCeo(getCeoReq.getCeoId());
+            String check = ceoDao.loginCeo(getCeoReq.getCeo_id());
 
             if (!password.equals(check))
                 throw new BaseException(CEO_ERROR_CEO_PWD);
@@ -88,15 +88,15 @@ public class CeoService {
     /* 비밀번호 변경 */
     public PatchCeoPwdRes modifyCeoPwd(PatchCeoPwdReq patchCeoPwdReq) throws BaseException {
         //아이디 존재여부 check
-        if(ceoProvider.checkCeoId(patchCeoPwdReq.getCeoId()) ==0){
+        if(ceoProvider.checkCeoId(patchCeoPwdReq.getCeo_id()) ==0){
             throw new BaseException(CEO_EMPTY_CEO_ID);
         }
 
         String pwd;
         try{
             //비밀번호 암호화
-            pwd = new SHA256().encrypt(patchCeoPwdReq.getModifyCeoPwd());
-            patchCeoPwdReq.setModifyCeoPwd(pwd);
+            pwd = new SHA256().encrypt(patchCeoPwdReq.getModifyceo_pwd());
+            patchCeoPwdReq.setModifyceo_pwd(pwd);
         } catch (Exception ignored) {
             throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
         }

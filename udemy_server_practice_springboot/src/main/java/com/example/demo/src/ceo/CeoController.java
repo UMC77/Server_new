@@ -38,51 +38,51 @@ public class CeoController {
     public BaseResponse<PostCeoRes> createCeo(@RequestBody PostCeoReq postCeoReq) {
 
         //사업자 등록번호 공백 check
-        if(postCeoReq.getStoreNum() == null)
+        if(postCeoReq.getStore_num() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_STORE_NUM);
 
         //아이디 공백 check
-        if(postCeoReq.getCeoId() == null)
+        if(postCeoReq.getCeo_id() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_ID);
 
         //아이디 길이 check
-        if(postCeoReq.getCeoId().length()>10)
+        if(postCeoReq.getCeo_id().length()>10)
             return new BaseResponse<>(POST_CEO_INVALID_ID_LEN);
 
         //아이디 영문, 숫자만 허용
-        if(!isRegexIPwd(postCeoReq.getCeoId()))
+        if(!isRegexIPwd(postCeoReq.getCeo_id()))
             return new BaseResponse<>(POST_CEO_INVALID_ID);
 
         //휴대폰번호 공백 check
-        if(postCeoReq.getCeoPhone() == null)
+        if(postCeoReq.getCeo_phone() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_PHONE);
 
         //비밀번호 공백 check
-        if(postCeoReq.getPwd() == null)
+        if(postCeoReq.getCeo_pwd() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_PWD);
 
         //비밀번호 길이 check
-        if(postCeoReq.getCeoId().length()<8)
+        if(postCeoReq.getCeo_id().length()<8)
             return new BaseResponse<>(POST_CEO_INVALID_PWD_LEN);
 
         //비밀번호 영문, 숫자만 허용
-        if(!isRegexIPwd(postCeoReq.getCeoPwd()))
+        if(!isRegexIPwd(postCeoReq.getCeo_pwd()))
             return new BaseResponse<>(POST_CEO_INVALID_PWD);
 
         //이름 공백 check
-        if(postCeoReq.getCeoName() == null)
+        if(postCeoReq.getCeo_name() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_CEO_NAME);
 
         //상호 공백 check
-        if(postCeoReq.getStoreName() == null)
+        if(postCeoReq.getStore_name() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_STORE_NAME);
 
         //매장 전화번호 공백 check
-        if(postCeoReq.getStorePhone() == null)
+        if(postCeoReq.getStore_phone() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_STORE_PHONE);
 
         //주소 공백 check
-        if(postCeoReq.getAddress() == null)
+        if(postCeoReq.getStore_address() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_ADDRESS);
 
         try{
@@ -98,21 +98,21 @@ public class CeoController {
     @PatchMapping("/modifyceopwd")
     public BaseResponse<PatchCeoPwdRes> modifyCeoPwd(@RequestBody PatchCeoPwdReq patchCeoPwdReq){
         //아이디 공백 check
-        if(patchCeoPwdReq.getCeoId()==null) {
+        if(patchCeoPwdReq.getCeo_id()==null) {
             return new BaseResponse<>(CEO_EMPTY_CEO_ID);
         }
 
         //수정 비밀번호 공백 check
-        if(patchCeoPwdReq.getModifyCeoPwd()==null) {
+        if(patchCeoPwdReq.getModify_ceo_pwd()==null) {
             return new BaseResponse<>(PATCH_CEO_EMPTY_MODIFY_PWD);
         }
 
         //수정 비밀번호 길이 check
-        if(patchCeoPwdReq.getModifyCeoPwd().length()<8)
+        if(patchCeoPwdReq.getModify_ceo_pwd().length()<8)
             return new BaseResponse<>(PATCH_CEO_INVALID_MODIFY_PWD_LEN);
 
         //수정 비밀번호 영문, 숫자만 허용
-        if(!isRegexIPwd(patchCeoPwdReq.getModifyCeoPwd()))
+        if(!isRegexIPwd(patchCeoPwdReq.getModify_ceo_pwd()))
             return new BaseResponse<>(PATCH_CEO_INVALID_MODIFY_PWD);
 
         try {
@@ -129,11 +129,11 @@ public class CeoController {
     public BaseResponse<String> loginCeo(@RequestBody GetCeoReq getCeoReq) {
 
         //아이디 공백 check
-        if(getCeoReq.getCeoId() == null)
+        if(getCeoReq.getCeo_id() == null)
             return new BaseResponse<>(CEO_EMPTY_CEO_ID);
 
         //비밀번호 공백 체크
-        if(getCeoReq.getCeoPwd()==null)
+        if(getCeoReq.getCeo_pwd()==null)
             return new BaseResponse<>(CEO_EMPTY_CEO_PWD);
 
         try {

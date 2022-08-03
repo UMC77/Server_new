@@ -28,27 +28,27 @@ public class CeoProvider {
     }
 
     //사업자등록번호 존재 여부 check
-    public int checkStoreNum(String storeNum) throws BaseException{
+    public int checkStoreNum(String store_num) throws BaseException{
         try{
-            return ceoDao.checkStoreNum(storeNum);
+            return ceoDao.checkStoreNum(store_num);
         } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
     }
 
     //아이디 존재 여부 check
-    public int checkCeoId(String ceoId) throws BaseException{
+    public int checkCeoId(String ceo_id) throws BaseException{
         try{
-            return ceoDao.checkCeoId(ceoId);
+            return ceoDao.checkCeoId(ceo_id);
         } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
     }
 
     //휴대폰번호 존재 여부 check
-    public int checkCeoPhone(String ceoPhone) throws BaseException{
+    public int checkCeoPhone(String ceo_phone) throws BaseException{
         try{
-            return ceoDao.checkCeoPhone(ceoPhone);
+            return ceoDao.checkCeoPhone(ceo_phone);
         } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
