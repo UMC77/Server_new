@@ -13,8 +13,8 @@ public class PostCeoReq {
     private String ceo_pwd; //비번
     private String ceo_name;    //사장님 이름
     private String ceo_phone;   //사장님 번호
-    private String store_name;  //상호
-    private String store_phone;    //매장 번호
-    private String store_address;  //주소
-    private String store_info; //가게 위치 상세
+//    private String store_name;  //상호
+//    private String store_phone;    //매장 번호
+//    private String store_address;  //주소
+//    private String store_info; //가게 위치 상세
 }

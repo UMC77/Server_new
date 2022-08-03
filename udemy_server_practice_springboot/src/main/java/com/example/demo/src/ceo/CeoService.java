@@ -35,6 +35,7 @@ public class CeoService {
 
 
     /* 회원가입 */
+    // ceo
     public PostCeoRes createCeo(PostCeoReq postCeoReq) throws BaseException {
         // 사업자등록번호 중복 확인
         if(ceoProvider.checkStoreNum(postCeoReq.getStore_num()) ==1){
@@ -69,6 +70,18 @@ public class CeoService {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    //store
+    public PostStoreRes createStore(int ceoIdx, PostStoreReq postStoreReq) throws BaseException {
+        try{
+            int ceoIdx = ceoDao.createStore(ceoIdx, postStoreReq);
+            }
+            return new PostStoreRes(ceoIdx);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
 
     /* 로그인 */
     public void loginCeo(GetCeoReq getCeoReq) throws BaseException {

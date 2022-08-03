@@ -32,9 +32,9 @@ public class CeoController {
     }
 
     /* 회원가입 */
-    // Body
+    // ceo 정보
     @ResponseBody
-    @PostMapping("/signup") // (POST) 127.0.0.1:9000/ceo
+    @PostMapping("/signupceo")
     public BaseResponse<PostCeoRes> createCeo(@RequestBody PostCeoReq postCeoReq) {
 
         //사업자 등록번호 공백 check
@@ -73,21 +73,36 @@ public class CeoController {
         if(postCeoReq.getCeo_name() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_CEO_NAME);
 
-        //상호 공백 check
-        if(postCeoReq.getStore_name() == null)
-            return new BaseResponse<>(POST_CEO_EMPTY_STORE_NAME);
-
-        //매장 전화번호 공백 check
-        if(postCeoReq.getStore_phone() == null)
-            return new BaseResponse<>(POST_CEO_EMPTY_STORE_PHONE);
-
-        //주소 공백 check
-        if(postCeoReq.getStore_address() == null)
-            return new BaseResponse<>(POST_CEO_EMPTY_ADDRESS);
 
         try{
             PostCeoRes postCeoRes = ceoService.createCeo(postCeoReq);
             return new BaseResponse<>(postCeoRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    // 가게 정보
+    @ResponseBody
+    @PostMapping("/signupstore")
+    public BaseResponse<PostStoreRes> createStore(@RequestBody PostStoreReq postStoreReq) {
+
+        //상호 공백 check
+        if(postStoreReq.getStore_name() == null)
+            return new BaseResponse<>(POST_CEO_EMPTY_STORE_NAME);
+
+        //매장 전화번호 공백 check
+        if(postStoreReq.getStore_phone() == null)
+            return new BaseResponse<>(POST_CEO_EMPTY_STORE_PHONE);
+
+        //주소 공백 check
+        if(postStoreReq.getStore_address() == null)
+            return new BaseResponse<>(POST_CEO_EMPTY_ADDRESS);
+
+        try{
+            int ceoIdxByJwt = jwtService.getCeoIdx();
+            PostStoreRes postStoreRes = postService.createStore(ceoIdxByJwt,postStoreReq);
+            return new BaseResponse<>(postStoreRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
