@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import static com.example.demo.config.BaseResponseStatus.*;
-//import static com.example.demo.config.BaseResponseStatus.POST_USERS_INVALID_EMAIL;
 import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 @RestController
@@ -24,8 +23,6 @@ public class CeoController {
     private final CeoService ceoService;
     @Autowired
     private final JwtService jwtService;
-
-
 
 
     public CeoController(CeoProvider ceoProvider, CeoService ceoService, JwtService jwtService){
@@ -111,12 +108,12 @@ public class CeoController {
         }
 
         //수정 비밀번호 길이 check
-        if(patchCeoPwdReq.getCeoId().length()<8)
-            return new BaseResponse<>(POST_CEO_INVALID_PWD_LEN);
+        if(patchCeoPwdReq.getModifyCeoPwd().length()<8)
+            return new BaseResponse<>(PATCH_CEO_INVALID_MODIFY_PWD_LEN);
 
         //수정 비밀번호 영문, 숫자만 허용
-        if(!isRegexIPwd(patchCeoPwdReq.getCeoPwd()))
-            return new BaseResponse<>(POST_CEO_INVALID_PWD);
+        if(!isRegexIPwd(patchCeoPwdReq.getModifyCeoPwd()))
+            return new BaseResponse<>(PATCH_CEO_INVALID_MODIFY_PWD);
 
         try {
             PatchCeoPwdRes patchCeoPwdRes = ceoService.modifyCeoPwd(patchCeoPwdReq);
@@ -132,14 +129,12 @@ public class CeoController {
     public BaseResponse<String> loginCeo(@RequestBody GetCeoReq getCeoReq) {
 
         //아이디 공백 check
-        if(getCeoReq.getCeoId() == null){
+        if(getCeoReq.getCeoId() == null)
             return new BaseResponse<>(CEO_EMPTY_CEO_ID);
-        }
 
         //비밀번호 공백 체크
-        if(getCeoReq.getCeoPwd()==null) {
+        if(getCeoReq.getCeoPwd()==null)
             return new BaseResponse<>(CEO_EMPTY_CEO_PWD);
-        }
 
         try {
             ceoService.loginCeo(getCeoReq);
@@ -149,45 +144,6 @@ public class CeoController {
 
     }
 
-
-    /**
-     * 회원 조회 API
-     * [GET] /ceo
-     * 검색 조회 API
-     * [GET] /ceo? keyword=
-     * @return BaseResponse<GetCeoRes>
-     */
-    //Query String
-//    @ResponseBody
-//    @GetMapping("") // (GET) 127.0.0.1:9000/ceo
-//    public BaseResponse<GetCeoRes> getCeo(@RequestParam(required = true) String Email) {
-//        try{
-//            // TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
-//            if(Email.length()==0){
-//                return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
-//            }
-//            // 이메일 정규표현
-//            if(!isRegexEmail(Email)){
-//                return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
-//            }
-//            GetCeoRes getCeoRes = ceoProvider.getUsersByEmail(Email);
-//            return new BaseResponse<>(getCeoRes);
-//        } catch(BaseException exception){
-//            return new BaseResponse<>((exception.getStatus()));
-//        }
-//    }
-//
-//    @ResponseBody
-//    @GetMapping("/{ceoIdx}") // (GET) 127.0.0.1:9000/ceo/:ceoIdx
-//    public BaseResponse<GetCeoRes> getCeoByIdx(@PathVariable("userIdx")int userIdx) {
-//        try{
-//
-//            GetUserRes getUsersRes = userProvider.getUsersByIdx(userIdx);
-//            return new BaseResponse<>(getUsersRes);
-//        } catch(BaseException exception){
-//            return new BaseResponse<>((exception.getStatus()));
-//        }
-//    }
 
 
 

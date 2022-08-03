@@ -63,7 +63,7 @@ public class CeoService {
             int ceoIdx = ceoDao.createCeo(postCeoReq);
 
             //jwt 발급.
-            String jwt = jwtService.createJwt(ceoIdx);
+            String jwt = jwtService.createCeoJwt(ceoIdx);
             return new PostCeoRes(jwt,ceoIdx);
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
@@ -104,8 +104,8 @@ public class CeoService {
             int ceoIdx = ceoDao.modifyCeoPwd(patchCeoPwdReq);
 
             //jwt 발급.
-            String jwt = jwtService.createJwt(ceoIdx);
-            return new patchCeoPwdRes(jwt,ceoIdx);
+            String jwt = jwtService.createCeoJwt(ceoIdx);
+            return new patchCeoPwdRes(jwt,ceoIdx);createJwt
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }

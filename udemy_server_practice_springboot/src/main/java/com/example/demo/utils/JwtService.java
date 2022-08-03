@@ -35,6 +35,17 @@ public class JwtService {
                 .compact();
     }
 
+    public String createCeoJwt(int ceoIdx){
+        Date now = new Date();
+        return Jwts.builder()
+                .setHeaderParam("type","jwt")
+                .claim("ceoIdx",userIdx)
+                .setIssuedAt(now)
+                .setExpiration(new Date(System.currentTimeMillis()+1*(1000*60*60*24*365)))
+                .signWith(SignatureAlgorithm.HS256, Secret.JWT_SECRET_KEY)
+                .compact();
+    }
+
     /*
     Header에서 X-ACCESS-TOKEN 으로 JWT 추출
     @return String
@@ -68,6 +79,27 @@ public class JwtService {
 
         // 3. userIdx 추출
         return claims.getBody().get("userIdx",Integer.class);
+    }
+
+    public int getCeoIdx() throws BaseException{
+        //1. JWT 추출
+        String accessToken = getJwt();
+        if(accessToken == null || accessToken.length() == 0){
+            throw new BaseException(EMPTY_JWT);
+        }
+
+        // 2. JWT parsing
+        Jws<Claims> claims;
+        try{
+            claims = Jwts.parser()
+                    .setSigningKey(Secret.JWT_SECRET_KEY)
+                    .parseClaimsJws(accessToken);
+        } catch (Exception ignored) {
+            throw new BaseException(INVALID_JWT);
+        }
+
+        // 3. userIdx 추출
+        return claims.getBody().get("ceoIdx",Integer.class);
     }
 
 }
