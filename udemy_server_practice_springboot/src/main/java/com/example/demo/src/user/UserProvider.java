@@ -41,35 +41,5 @@ public class UserProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
-    }
-
-
-
-
-    /*
-
-    public GetUserRes getUsersByEmail(String email) throws BaseException{
-        try{
-            GetUserRes getUsersRes = userDao.getUsersByEmail(email);
-            return getUsersRes;
-        }
-        catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
-
-
-    public GetUserRes getUsersByIdx(int userIdx) throws BaseException{
-        try{
-            GetUserRes getUsersRes = userDao.getUsersByIdx(userIdx);
-            return getUsersRes;
-        }
-        catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
-
-
-  */
-
 }
+

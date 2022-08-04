@@ -26,6 +26,7 @@ public enum BaseResponseStatus {
     USERS_EMPTY_USER_ID(false, 2010, "유저 아이디 값을 확인해주세요."),
     USERS_EMPTY_USER_PASSWORD(false, 2011, "유저 비밀번호 값을 확인해주세요"),
     USERS_ERROR_USER_PASSWORD(false, 2012, "비밀번호가 다릅니다."),
+    USERS_NOT_EXISTS_ID(false, 2013, "존재하지 않는 아이디 입니다."),
 
     // [POST] /users
     POST_USERS_EMPTY_EMAIL(false, 2015, "이메일을 입력해주세요."),

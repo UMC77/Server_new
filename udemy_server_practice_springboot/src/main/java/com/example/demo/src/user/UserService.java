@@ -32,7 +32,7 @@ public class UserService {
     }
 
     //회원가입
-    public PostUserRes creatUser(PostUserReq postUserReq) throws BaseException {
+    public PostUserRes createUser(PostUserReq postUserReq) throws BaseException {
         //이메일 중복 확인
         if(userProvider.checkEmail(postUserReq.getUser_id()) == 1)
             throw new BaseException(POST_USERS_EXISTS_EMAIL);
@@ -63,25 +63,27 @@ public class UserService {
     }
 
     //로그인
-    public void loginUser(GetUserReq getUserRes) throws BaseException {
+    public void loginUser(GetUserReq getUserReq) throws BaseException {
         try {
             String password;
 
-            password = new SHA256().encrypt(getUserRes.getUser_pwd());
+            password = new SHA256().encrypt(getUserReq.getUser_pwd());
 
-            String check = userDao.loginUser(getUserRes.getUser_id());
+            String check = userDao.loginUser(getUserReq.getUser_id());
 
             if (!password.equals(check))
                 throw new BaseException(USERS_ERROR_USER_PASSWORD);
-        } catch (Exception exception)
+        } catch (Exception exception) {
+            System.out.println(exception);
             throw new BaseException(DATABASE_ERROR);
+        }
     }
 
     //비밀번호 변경
     public PatchPwdRes modifyPwd(PatchPwdReq patchPwdReq) throws BaseException {
         //아이디의 존재 확인
-        if(userProvider.checkPwd(patchPwdReq.getUser_id()) == 0)
-            throw new BaseException(USERS_EMPTY_USER_ID);
+        if(userProvider.checkEmail(patchPwdReq.getUser_id()) == 0)
+            throw new BaseException(USERS_NOT_EXISTS_ID);
 
         try {
             //비밀번호 암호화
@@ -107,10 +109,10 @@ public class UserService {
     public void modifyNickname(PatchNicknameReq patchNicknameReq) throws BaseException {
         //아이디의 존재 확인
         if(userProvider.checkEmail(patchNicknameReq.getUser_id()) == 0)
-            throw new BaseException(USERS_EMPTY_USER_ID);
+            throw new BaseException(USERS_NOT_EXISTS_ID);
 
         try {
-            userDao.modifyNickname(patchNicknameReq.getUser_modify_nickname());
+            userDao.modifyNickname(patchNicknameReq);
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
@@ -121,51 +123,13 @@ public class UserService {
     public void modifyProfile(PatchProfileReq patchProfileReq) throws BaseException {
         //아이디의 존재 확인
         if(userProvider.checkEmail(patchProfileReq.getUser_id()) == 0)
-            throw new BaseException(USERS_EMPTY_USER_ID);
+            throw new BaseException(USERS_NOT_EXISTS_ID);
 
         try {
-            userDao.modifyProfile(patchProfileReq.getUser_modify_profile());
+            userDao.modifyProfile(patchProfileReq);
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
     }
 
-
-
-    /*
-    public PostUserRes createUser(PostUserReq postUserReq) throws BaseException {
-        // 이메일 중복 확인
-        if(userProvider.checkEmail(postUserReq.getEmail()) ==1){
-            throw new BaseException(POST_USERS_EXISTS_EMAIL);
-        }
-
-        String pwd;
-        try{
-            //암호화
-            pwd = new SHA256().encrypt(postUserReq.getPassword());  postUserReq.setPassword(pwd);
-        } catch (Exception ignored) {
-            throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
-        }
-        try{
-            int userIdx = userDao.createUser(postUserReq);
-            //jwt 발급.
-            // TODO: jwt는 다음주차에서 배울 내용입니다!
-            String jwt = jwtService.createJwt(userIdx);
-            return new PostUserRes(jwt,userIdx);
-        } catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
-
-    public void modifyUserName(PatchUserReq patchUserReq) throws BaseException {
-        try{
-            int result = userDao.modifyUserName(patchUserReq);
-            if(result == 0){
-                throw new BaseException(MODIFY_FAIL_USERNAME);
-            }
-        } catch(Exception exception){
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
-   */
 }

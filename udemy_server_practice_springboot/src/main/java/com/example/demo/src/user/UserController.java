@@ -25,24 +25,23 @@ public class UserController {
     private final JwtService jwtService;
 
 
-
-
     public UserController(UserProvider userProvider, UserService userService, JwtService jwtService){
         this.userProvider = userProvider;
         this.userService = userService;
         this.jwtService = jwtService;
     }
 
-    //회원가입
 
-    @RequestMapping
+    //회원가입
+    @ResponseBody
     @PostMapping("/signup")
     public BaseResponse<PostUserRes> createUser(@RequestBody PostUserReq postUserReq) {
+        System.out.println("signup 실행");
         //이메일 공백 체크
         if(postUserReq.getUser_id() == null)
             return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
 
-        //이메일 중복 체크
+        //이메일 형식 체크
         if(!isRegexEmail(postUserReq.getUser_id()))
                 return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
 
@@ -68,7 +67,6 @@ public class UserController {
 
 
     //로그인
-
     @ResponseBody
     @GetMapping("/login")
     public BaseResponse<String> loginUsers(@RequestBody GetUserReq getUserReq){
@@ -91,9 +89,8 @@ public class UserController {
 
 
     //비밀번호 변경
-
     @ResponseBody
-    @GetMapping("/modifypwd")
+    @PatchMapping("/modifypwd")
     public BaseResponse<PatchPwdRes> modifyPwd(@RequestBody PatchPwdReq patchPwdReq) {
         //아이디 공백 체크
         if(patchPwdReq.getUser_id()== null)
@@ -113,7 +110,7 @@ public class UserController {
 
     //닉네임 변경
     @ResponseBody
-    @GetMapping("/modifynickname")
+    @PatchMapping("/modifynickname")
     public BaseResponse<String> modifyPwd(@RequestBody PatchNicknameReq patchNicknameReq) {
         //아이디 공백 체크
         if(patchNicknameReq.getUser_id()== null)
@@ -134,7 +131,7 @@ public class UserController {
 
     //프로필 변경
     @ResponseBody
-    @GetMapping("/modifyprofile")
+    @PatchMapping("/modifyprofile")
     public BaseResponse<String> modifyProfile(@RequestBody PatchProfileReq patchProfileReq) {
         //아이디 공백 체크
         if(patchProfileReq.getUser_id()== null)
@@ -152,82 +149,4 @@ public class UserController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
-
-    /*
-
-    //Query String
-    @ResponseBody
-    @GetMapping("") // (GET) 127.0.0.1:9000/users
-    public BaseResponse<GetUserRes> getUsers(@RequestParam(required = true) String Email) {
-        try{
-            // TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
-            if(Email.length()==0){
-                return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
-            }
-            // 이메일 정규표현
-            if(!isRegexEmail(Email)){
-                return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
-            }
-            GetUserRes getUsersRes = userProvider.getUsersByEmail(Email);
-            return new BaseResponse<>(getUsersRes);
-        } catch(BaseException exception){
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }
-
-    @ResponseBody
-    @GetMapping("/{userIdx}") // (GET) 127.0.0.1:9000/users/:userIdx
-    public BaseResponse<GetUserRes> getUserByIdx(@PathVariable("userIdx")int userIdx) {
-        try{
-
-            GetUserRes getUsersRes = userProvider.getUsersByIdx(userIdx);
-            return new BaseResponse<>(getUsersRes);
-        } catch(BaseException exception){
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }
-
-
-    @ResponseBody
-    @PostMapping("") // (POST) 127.0.0.1:9000/users
-    public BaseResponse<PostUserRes> createUser(@RequestBody PostUserReq postUserReq) {
-        // TODO: email 관련한 짧은 validation 예시입니다. 그 외 더 부가적으로 추가해주세요!
-        if(postUserReq.getEmail() == null){
-            return new BaseResponse<>(POST_USERS_EMPTY_EMAIL);
-        }
-        // 이메일 정규표현
-        if(!isRegexEmail(postUserReq.getEmail())){
-            return new BaseResponse<>(POST_USERS_INVALID_EMAIL);
-        }
-        try{
-            PostUserRes postUserRes = userService.createUser(postUserReq);
-            return new BaseResponse<>(postUserRes);
-        } catch(BaseException exception){
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }
-
-    @ResponseBody
-    @PatchMapping("/{userIdx}") // (PATCH) 127.0.0.1:9000/users/:userIdx
-    public BaseResponse<String> modifyUserName(@PathVariable("userIdx") int userIdx, @RequestBody User user){
-        try {
-             TODO: jwt는 다음주차에서 배울 내용입니다!
-            jwt에서 idx 추출.
-            int userIdxByJwt = jwtService.getUserIdx();
-            userIdx와 접근한 유저가 같은지 확인
-            if(userIdx != userIdxByJwt){
-                return new BaseResponse<>(INVALID_USER_JWT);
-            }
-
-
-            PatchUserReq patchUserReq = new PatchUserReq(userIdx,user.getNickName());
-            userService.modifyUserName(patchUserReq);
-
-            String result = "";
-        return new BaseResponse<>(result);
-        } catch (BaseException exception) {
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }
-    */
 }
