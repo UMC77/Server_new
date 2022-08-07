@@ -48,7 +48,7 @@ public class StoreProvider {
     // 사장의 게시물인지 확인
     public int checkCeoStoreExist(int ceo_idx,int store_idx) throws BaseException{
         try{
-            return storeDao.checkUserPostExist(ceo_idx,store_idx);
+            return storeDao.checkCeoStoreExist(ceo_idx,store_idx);
         } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }

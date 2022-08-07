@@ -32,7 +32,7 @@ public class CeoController {
 
     /* 가게 정보 조회 */
     @RequestMapping
-    @GetMapping("")
+    @GetMapping("/view")
     public BaseResponse<GetStoreRes> getStore() {
         try{
             //jwt에서 idx 추출.
@@ -47,31 +47,31 @@ public class CeoController {
 
 
     /* 가게 정보 등록 */
-    @RequestMapping
-    @PostMapping("/add")
-    public BaseResponse<PostStoreRes> addStore(@RequestBody PostStoreReq postStoreReq) {
-
-        //가게 대표 사진 공백 check
-        if(postStoreReq.getStore_img_url().size()<1){
-            return new BaseResponse<>(POST_STORE_EMPTY_IMGRUL);
-        }
-
-        //운영시간 공백 check
-        if(postStoreReq.getStore_time() == null)
-            return new BaseResponse<>(POST_STORE_EMPTY_STORE_TIME);
-
-        //휴무일 공백 check
-        if(postStoreReq.getStore_holiday() == null)
-            return new BaseResponse<>(POST_STORE_EMPTY_STORE_HOLIDAY);
-
-        try {
-            int ceoIdxByJwt = jwtService.getCeoIdx();
-            PostStoreRes postStoreRes = storeService.addStore(ceoIdxByJwt,postStoreReq);
-            return new BaseResponse<>(postStoreRes);
-        } catch (BaseException exception) {
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }
+//    @RequestMapping
+//    @PostMapping("/add")
+//    public BaseResponse<PostStoreRes> addStore(@RequestBody PostStoreReq postStoreReq) {
+//
+//        //가게 대표 사진 공백 check
+//        if(postStoreReq.getStore_img_url().size()<1){
+//            return new BaseResponse<>(POST_STORE_EMPTY_IMGRUL);
+//        }
+//
+//        //운영시간 공백 check
+//        if(postStoreReq.getStore_time() == null)
+//            return new BaseResponse<>(POST_STORE_EMPTY_STORE_TIME);
+//
+//        //휴무일 공백 check
+//        if(postStoreReq.getStore_holiday() == null)
+//            return new BaseResponse<>(POST_STORE_EMPTY_STORE_HOLIDAY);
+//
+//        try {
+//            int ceoIdxByJwt = jwtService.getCeoIdx();
+//            PostStoreRes postStoreRes = storeService.addStore(ceoIdxByJwt,postStoreReq);
+//            return new BaseResponse<>(postStoreRes);
+//        } catch (BaseException exception) {
+//            return new BaseResponse<>((exception.getStatus()));
+//        }
+//    }
 
 
     /* 가게 정보(전체 정보) 수정 */
