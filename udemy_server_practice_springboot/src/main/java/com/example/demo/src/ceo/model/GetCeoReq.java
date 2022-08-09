@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GetCeoReq {
-    private int ceo_id;
+    private String ceo_id;
     private String ceo_pwd;
 
 }

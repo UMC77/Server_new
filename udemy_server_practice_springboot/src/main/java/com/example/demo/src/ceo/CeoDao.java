@@ -19,20 +19,21 @@ public class CeoDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    // <1>-1
+    //회원가입
+    // <1>-1 사장 정보 추가
     public int createCeo(PostCeoReq postCeoReq){
-        String createCeoQuery = "insert into ceo (ceo_id, ceo_pwd, ceo_name, ceo_phone) VALUES (?,?,?,?)";
-        Object[] createCeoParams = new Object[]{postCeoReq.getCeo_id(),postCeoReq.getCeo_pwd(), postCeoReq.getCeo_name(), postCeoReq.getCeo_phone()};
+        String createCeoQuery = "insert into ceo (ceo_id, ceo_pwd, ceo_phone, ceo_name) VALUES (?,?,?,?)";
+        Object[] createCeoParams = new Object[]{postCeoReq.getCeo_id(),postCeoReq.getCeo_pwd(), postCeoReq.getCeo_phone(), postCeoReq.getCeo_name()};
         this.jdbcTemplate.update(createCeoQuery, createCeoParams);
 
         String lastInsertIdQuery = "select last_insert_id()";
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
     }
 
-    // <1>-2
-    public int createStore(PostCeoReq postCeoReq){
-        String createCeoQuery = "insert into store (store_num, store_name, store_phone, store_address, store_info) VALUES (?,?,?,?,?)";
-        Object[] createCeoParams = new Object[]{postCeoReq.getStore_num(), postCeoReq.getStore_name(), postCeoReq.getStore_phone(), postCeoReq.getStore_address(), postCeoReq.getStore_info()};
+    // <1>-2 가게 정보 추가
+    public int createStore(int ceoIdx, PostStoreReq postStoreReq){
+        String createCeoQuery = "insert into store (store_ceo_idx, store_num, store_name, store_phone, store_address, store_info) VALUES (?,?,?,?,?,?)";
+        Object[] createCeoParams = new Object[]{ceoIdx,postStoreReq.getStore_num(), postStoreReq.getStore_name(), postStoreReq.getStore_phone(), postStoreReq.getStore_address(), postStoreReq.getStore_info()};
         this.jdbcTemplate.update(createCeoQuery, createCeoParams);
 
         String lastInsertIdQuery = "select last_insert_id()";
@@ -70,9 +71,9 @@ public class CeoDao {
     }
 
     // <5>
-    public int modifyPwd(PatchCeoPwdReq patchCeoPwdReq){
+    public int modifyCeoPwd(PatchCeoPwdReq patchCeoPwdReq){
         String modifyPwdQuery = "update ceo set ceo_pwd = ? where ceo_id = ? ";
-        Object[] modifyPwdParams = new Object[]{patchCeoPwdReq.getCeo_pwd(), patchCeoPwdReq.getCeo_id()};
+        Object[] modifyPwdParams = new Object[]{patchCeoPwdReq.getModify_ceo_pwd(), patchCeoPwdReq.getCeo_id()};
         this.jdbcTemplate.update(modifyPwdQuery, modifyPwdParams);
 
         String lastInsertIdQuery = "select last_insert_id()";
@@ -80,14 +81,20 @@ public class CeoDao {
     }
 
     // <6>
-    public Ceo loginCeo(PostLoginReq postLoginReq){
-        String loginCeoQuery = "select ceo_id,ceo_pwd from ceo where ceo_id=?";
-        String loginCeoParams = postLoginReq.getCeoId();
-        return this.jdbcTemplate.queryForObject(loginCeoQuery,
-                (rs, rowNum) -> new ceo(
-                        rs.getInt("ceo_id"),
-                        rs.getString("ceo_pwd"),
-                        loginCeoParams);
+//    public Ceo loginCeo(PostLoginReq postLoginReq){
+//        String loginCeoQuery = "select ceo_id,ceo_pwd from ceo where ceo_id=?";
+//        String loginCeoParams = postLoginReq.getCeoId();
+//        return this.jdbcTemplate.queryForObject(loginCeoQuery,
+//                (rs, rowNum) -> new ceo(
+//                        rs.getString("ceo_id"),
+//                        rs.getString("ceo_pwd"),
+//                        loginCeoParams));
+//    }
+
+    public String loginCeo(String ceo_id){
+        String loginCeoQuery = "select ceo_pwd from ceo where ceo_id=?";
+        String loginCeoParams = ceo_id;
+        return this.jdbcTemplate.queryForObject(loginCeoQuery,String.class,loginCeoParams);
     }
 
 }

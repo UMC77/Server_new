@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PatchCeoPwdReq {
-    private int ceo_id;    //사장님 아이디
+    private String ceo_id;    //사장님 아이디
     private String modify_ceo_pwd;   //수정 비밀번호
 }

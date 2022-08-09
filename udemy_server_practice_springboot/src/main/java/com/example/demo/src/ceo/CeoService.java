@@ -3,9 +3,7 @@ package com.example.demo.src.ceo;
 
 import com.example.demo.config.BaseException;
 
-import com.example.demo.src.ceo.model.PatchCeoReq;
-import com.example.demo.src.ceo.model.PostCeoReq;
-import com.example.demo.src.ceo.model.PostCeoRes;
+import com.example.demo.src.ceo.model.*;
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
 import org.slf4j.Logger;
@@ -37,10 +35,10 @@ public class CeoService {
     /* 회원가입 */
     // ceo
     public PostCeoRes createCeo(PostCeoReq postCeoReq) throws BaseException {
-        // 사업자등록번호 중복 확인
-        if(ceoProvider.checkStoreNum(postCeoReq.getStore_num()) ==1){
-            throw new BaseException(POST_CEO_EXISTS_STORE_NUM);
-        }
+//        // 사업자등록번호 중복 확인
+//        if(ceoProvider.checkStoreNum(postCeoReq.getStore_num()) ==1){
+//            throw new BaseException(POST_CEO_EXISTS_STORE_NUM);
+//        }
 
         // 아이디 중복 확인
         if(ceoProvider.checkCeoId(postCeoReq.getCeo_id()) ==1){
@@ -48,7 +46,7 @@ public class CeoService {
         }
 
         // 핸드폰 번호 중복 확인
-        if(ceoProvider.checkStoreNum(postCeoReq.getCeo_phone()) ==1){
+        if(ceoProvider.checkCeoPhone(postCeoReq.getCeo_phone()) ==1){
             throw new BaseException(POST_CEO_EXISTS_CEO_PHONE);
         }
 
@@ -73,10 +71,16 @@ public class CeoService {
 
     //store
     public PostStoreRes createStore(int ceoIdx, PostStoreReq postStoreReq) throws BaseException {
+
+        // 사업자등록번호 중복 확인
+        if(ceoProvider.checkStoreNum(postStoreReq.getStore_num()) ==1){
+            throw new BaseException(POST_CEO_EXISTS_STORE_NUM);
+        }
+
         try{
-            int ceoIdx = ceoDao.createStore(ceoIdx, postStoreReq);
-            }
-            return new PostStoreRes(ceoIdx);
+            int storeIdx = ceoDao.createStore(ceoIdx, postStoreReq);
+
+            return new PostStoreRes(storeIdx);
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }
@@ -94,8 +98,10 @@ public class CeoService {
 
             if (!password.equals(check))
                 throw new BaseException(CEO_ERROR_CEO_PWD);
-        } catch (Exception exception)
-        throw new BaseException(DATABASE_ERROR);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+
     }
 
     /* 비밀번호 변경 */
@@ -108,8 +114,8 @@ public class CeoService {
         String pwd;
         try{
             //비밀번호 암호화
-            pwd = new SHA256().encrypt(patchCeoPwdReq.getModifyceo_pwd());
-            patchCeoPwdReq.setModifyceo_pwd(pwd);
+            pwd = new SHA256().encrypt(patchCeoPwdReq.getModify_ceo_pwd());
+            patchCeoPwdReq.setModify_ceo_pwd(pwd);
         } catch (Exception ignored) {
             throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
         }
@@ -118,7 +124,7 @@ public class CeoService {
 
             //jwt 발급.
             String jwt = jwtService.createCeoJwt(ceoIdx);
-            return new patchCeoPwdRes(jwt,ceoIdx);createJwt
+            return new PatchCeoPwdRes(jwt,ceoIdx);
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }

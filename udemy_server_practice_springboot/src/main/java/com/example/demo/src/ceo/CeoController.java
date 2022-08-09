@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import static com.example.demo.config.BaseResponseStatus.*;
-import static com.example.demo.utils.ValidationRegex.isRegexEmail;
+import static com.example.demo.utils.ValidationRegex.isRegexIPwd;
 
 @RestController
 @RequestMapping("/ceo")
@@ -36,10 +36,11 @@ public class CeoController {
     @ResponseBody
     @PostMapping("/signupceo")
     public BaseResponse<PostCeoRes> createCeo(@RequestBody PostCeoReq postCeoReq) {
+        System.out.println("signup 실행");
 
-        //사업자 등록번호 공백 check
-        if(postCeoReq.getStore_num() == null)
-            return new BaseResponse<>(POST_CEO_EMPTY_STORE_NUM);
+//        //사업자 등록번호 공백 check
+//        if(postCeoReq.getStore_num() == null)
+//            return new BaseResponse<>(POST_CEO_EMPTY_STORE_NUM);
 
         //아이디 공백 check
         if(postCeoReq.getCeo_id() == null)
@@ -55,14 +56,14 @@ public class CeoController {
 
         //휴대폰번호 공백 check
         if(postCeoReq.getCeo_phone() == null)
-            return new BaseResponse<>(POST_CEO_EMPTY_PHONE);
+            return new BaseResponse<>(POST_CEO_EMPTY_CEO_PHONE);
 
         //비밀번호 공백 check
         if(postCeoReq.getCeo_pwd() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_PWD);
 
         //비밀번호 길이 check
-        if(postCeoReq.getCeo_id().length()<8)
+        if(postCeoReq.getCeo_pwd().length()<8)
             return new BaseResponse<>(POST_CEO_INVALID_PWD_LEN);
 
         //비밀번호 영문, 숫자만 허용
@@ -78,6 +79,7 @@ public class CeoController {
             PostCeoRes postCeoRes = ceoService.createCeo(postCeoReq);
             return new BaseResponse<>(postCeoRes);
         } catch(BaseException exception){
+            System.out.println("오류");
             return new BaseResponse<>((exception.getStatus()));
         }
     }
@@ -86,6 +88,10 @@ public class CeoController {
     @ResponseBody
     @PostMapping("/signupstore")
     public BaseResponse<PostStoreRes> createStore(@RequestBody PostStoreReq postStoreReq) {
+
+        //사업자 등록번호 공백 check
+        if(postStoreReq.getStore_num() == null)
+            return new BaseResponse<>(POST_CEO_EMPTY_STORE_NUM);
 
         //상호 공백 check
         if(postStoreReq.getStore_name() == null)
@@ -101,7 +107,7 @@ public class CeoController {
 
         try{
             int ceoIdxByJwt = jwtService.getCeoIdx();
-            PostStoreRes postStoreRes = postService.createStore(ceoIdxByJwt,postStoreReq);
+            PostStoreRes postStoreRes = ceoService.createStore(ceoIdxByJwt,postStoreReq);
             return new BaseResponse<>(postStoreRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -132,7 +138,7 @@ public class CeoController {
 
         try {
             PatchCeoPwdRes patchCeoPwdRes = ceoService.modifyCeoPwd(patchCeoPwdReq);
-            return new BaseResponse<>(PatchCeoPwdRes);
+            return new BaseResponse<>(patchCeoPwdRes);
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
@@ -154,6 +160,8 @@ public class CeoController {
         try {
             ceoService.loginCeo(getCeoReq);
             String str = "로그인에 성공했습니다.";
+            return new BaseResponse<>(str);
+        } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
 
