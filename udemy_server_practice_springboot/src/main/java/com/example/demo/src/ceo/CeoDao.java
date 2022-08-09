@@ -32,9 +32,9 @@ public class CeoDao {
 
     // <1>-2 가게 정보 추가
     public int createStore(int ceoIdx, PostStoreReq postStoreReq){
-        String createCeoQuery = "insert into store (store_ceo_idx, store_num, store_name, store_phone, store_address, store_info) VALUES (?,?,?,?,?,?)";
-        Object[] createCeoParams = new Object[]{ceoIdx,postStoreReq.getStore_num(), postStoreReq.getStore_name(), postStoreReq.getStore_phone(), postStoreReq.getStore_address(), postStoreReq.getStore_info()};
-        this.jdbcTemplate.update(createCeoQuery, createCeoParams);
+        String createStoreQuery = "insert into store (store_ceo_idx, store_num, store_name, store_phone, store_address, store_info) VALUES (?,?,?,?,?,?)";
+        Object[] createStoreParams = new Object[]{ceoIdx,postStoreReq.getStore_num(), postStoreReq.getStore_name(), postStoreReq.getStore_phone(), postStoreReq.getStore_address(), postStoreReq.getStore_info()};
+        this.jdbcTemplate.update(createStoreQuery, createStoreParams);
 
         String lastInsertIdQuery = "select last_insert_id()";
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);

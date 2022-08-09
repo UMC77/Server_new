@@ -38,10 +38,6 @@ public class CeoController {
     public BaseResponse<PostCeoRes> createCeo(@RequestBody PostCeoReq postCeoReq) {
         System.out.println("signup 실행");
 
-//        //사업자 등록번호 공백 check
-//        if(postCeoReq.getStore_num() == null)
-//            return new BaseResponse<>(POST_CEO_EMPTY_STORE_NUM);
-
         //아이디 공백 check
         if(postCeoReq.getCeo_id() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_ID);
@@ -79,7 +75,7 @@ public class CeoController {
             PostCeoRes postCeoRes = ceoService.createCeo(postCeoReq);
             return new BaseResponse<>(postCeoRes);
         } catch(BaseException exception){
-            System.out.println("오류");
+//            System.out.println("컨트롤러");
             return new BaseResponse<>((exception.getStatus()));
         }
     }
@@ -107,9 +103,12 @@ public class CeoController {
 
         try{
             int ceoIdxByJwt = jwtService.getCeoIdx();
+
+
             PostStoreRes postStoreRes = ceoService.createStore(ceoIdxByJwt,postStoreReq);
             return new BaseResponse<>(postStoreRes);
         } catch(BaseException exception){
+//            System.out.println(exception);
             return new BaseResponse<>((exception.getStatus()));
         }
     }

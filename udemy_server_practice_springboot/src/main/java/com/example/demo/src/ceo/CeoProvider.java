@@ -32,6 +32,7 @@ public class CeoProvider {
         try{
             return ceoDao.checkStoreNum(store_num);
         } catch (Exception exception){
+            System.out.println(exception);
             throw new BaseException(DATABASE_ERROR);
         }
     }

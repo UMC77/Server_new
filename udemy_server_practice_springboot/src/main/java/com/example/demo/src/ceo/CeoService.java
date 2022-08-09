@@ -65,6 +65,7 @@ public class CeoService {
             String jwt = jwtService.createCeoJwt(ceoIdx);
             return new PostCeoRes(jwt,ceoIdx);
         } catch (Exception exception) {
+            System.out.println(exception);
             throw new BaseException(DATABASE_ERROR);
         }
     }
@@ -82,6 +83,7 @@ public class CeoService {
 
             return new PostStoreRes(storeIdx);
         } catch (Exception exception) {
+            System.out.println(exception);
             throw new BaseException(DATABASE_ERROR);
         }
     }
