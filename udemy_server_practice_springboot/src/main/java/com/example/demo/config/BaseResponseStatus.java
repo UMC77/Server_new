@@ -30,10 +30,11 @@ public enum BaseResponseStatus {
     CEO_EMPTY_CEO_ID(false, 2011, "사장 아이디 값을 확인해주세요."),
     CEO_EMPTY_CEO_PWD(false, 2012, "사장 비밀번호 값을 확인해주세요."),
     CEO_ERROR_CEO_PWD(false, 2013, "비밀번호가 다릅니다."),
+    CEO_EMPTY_PWD_CHK(false, 2014, "확인을 위해 비밀번호를 한번 더 입력해주세요."),
 
     //store
-    STORE_EMPTY_STORE_IDX(false, 2014, "가게 인덱스 값을 확인해주세요."),
-    STORE_EMPTY_CEO_STORE(false, 2015, "사장에게 해당하는 가게가 없습니다."),
+    STORE_EMPTY_STORE_IDX(false, 2015, "가게 인덱스 값을 확인해주세요."),
+    STORE_EMPTY_CEO_STORE(false, 2016, "사장에게 해당하는 가게가 없습니다."),
 
     // [POST]
     // /ceo
@@ -49,15 +50,17 @@ public enum BaseResponseStatus {
     POST_CEO_EMPTY_STORE_NAME(false, 2028, "상호명을 입력해주세요."),
     POST_CEO_EMPTY_STORE_PHONE(false, 2029, "매장 전화 번호를 입력해주세요."),
     POST_CEO_EMPTY_ADDRESS(false, 2030, "주소를 입력해주세요."),
-    POST_CEO_EMPTY_PWD(false, 2031, "비밀번호를 입력해주세요."),
-    POST_CEO_EXISTS_STORE_NUM(false,2032,"중복된 사업자등록번호입니다."),
-    POST_CEO_EXISTS_CEO_ID(false,2033,"중복된 아이디입니다."),
-    POST_CEO_EXISTS_CEO_PHONE(false,2034,"중복된 핸드폰 번호입니다."),
+    POST_CEO_EMPTY_ADDRESS_DETAIL(false, 2031, "상세 주소를 입력해주세요."),
+    POST_CEO_EMPTY_PWD(false, 2032, "비밀번호를 입력해주세요."),
+    POST_CEO_EXISTS_STORE_NUM(false,2033,"중복된 사업자등록번호입니다."),
+    POST_CEO_EXISTS_CEO_ID(false,2034,"중복된 아이디입니다."),
+    POST_CEO_EXISTS_CEO_PHONE(false,2035,"중복된 핸드폰 번호입니다."),
+
 
     // /store
-    POST_STORE_EMPTY_STORE_TIME(false, 2035, "매장 운영시간을 입력해주세요."),
-    POST_STORE_EMPTY_STORE_HOLIDAY(false, 2036, "매장 휴무일을 입력해주세요."),
-    POST_STORE_EMPTY_IMGRUL(false, 2037, "매장 사진을 등록해주세요."),
+    POST_STORE_EMPTY_STORE_TIME(false, 2036, "매장 운영시간을 입력해주세요."),
+    POST_STORE_EMPTY_STORE_HOLIDAY(false, 2037, "매장 휴무일을 입력해주세요."),
+    POST_STORE_EMPTY_IMGRUL(false, 2038, "매장 사진을 등록해주세요."),
 
     //[PATCH]
     // /ceo

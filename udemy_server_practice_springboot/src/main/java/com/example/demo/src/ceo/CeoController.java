@@ -36,7 +36,10 @@ public class CeoController {
     @ResponseBody
     @PostMapping("/signupceo")
     public BaseResponse<PostCeoRes> createCeo(@RequestBody PostCeoReq postCeoReq) {
-        System.out.println("signup 실행");
+
+        //사업자 등록번호 공백 check
+        if(postCeoReq.getStore_num() == null)
+            return new BaseResponse<>(POST_CEO_EMPTY_STORE_NUM);
 
         //아이디 공백 check
         if(postCeoReq.getCeo_id() == null)
@@ -70,12 +73,21 @@ public class CeoController {
         if(postCeoReq.getCeo_name() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_CEO_NAME);
 
+        //비밀번호 확인 공백 check
+        if(postCeoReq.getCeo_pwd_chk().equals("")) {
+            return new BaseResponse<>(CEO_EMPTY_PWD_CHK);
+        }
+
+        //비밀번호 확인 여부
+        if(!postCeoReq.getCeo_pwd().equals(postCeoReq.getCeo_pwd_chk())) {
+            return new BaseResponse<>(CEO_ERROR_CEO_PWD);
+        }
+
 
         try{
             PostCeoRes postCeoRes = ceoService.createCeo(postCeoReq);
             return new BaseResponse<>(postCeoRes);
         } catch(BaseException exception){
-//            System.out.println("컨트롤러");
             return new BaseResponse<>((exception.getStatus()));
         }
     }
@@ -84,10 +96,6 @@ public class CeoController {
     @ResponseBody
     @PostMapping("/signupstore")
     public BaseResponse<PostStoreRes> createStore(@RequestBody PostStoreReq postStoreReq) {
-
-        //사업자 등록번호 공백 check
-        if(postStoreReq.getStore_num() == null)
-            return new BaseResponse<>(POST_CEO_EMPTY_STORE_NUM);
 
         //상호 공백 check
         if(postStoreReq.getStore_name() == null)
@@ -101,7 +109,17 @@ public class CeoController {
         if(postStoreReq.getStore_address() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_ADDRESS);
 
+        //상세 주소 공백 check
+        if(postStoreReq.getStore_address_detail() == null)
+            return new BaseResponse<>(POST_CEO_EMPTY_ADDRESS_DETAIL);
+
         try{
+            //주소와 상세 주소 결합
+            String address = postStoreReq.getStore_address()+ " " + postStoreReq.getStore_address_detail();
+            System.out.println(address);
+            postStoreReq.setStore_address(address);
+
+
             int ceoIdxByJwt = jwtService.getCeoIdx();
 
 
@@ -134,6 +152,7 @@ public class CeoController {
         //수정 비밀번호 영문, 숫자만 허용
         if(!isRegexIPwd(patchCeoPwdReq.getModify_ceo_pwd()))
             return new BaseResponse<>(PATCH_CEO_INVALID_MODIFY_PWD);
+
 
         try {
             PatchCeoPwdRes patchCeoPwdRes = ceoService.modifyCeoPwd(patchCeoPwdReq);

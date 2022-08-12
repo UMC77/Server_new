@@ -6,20 +6,20 @@ com/example/demo/config/Constant.java
  com.example.demo.config.Constant
 com/example/demo/src/ceo/model/PostStoreRes.java
  com.example.demo.src.ceo.model.PostStoreRes
-com/example/demo/src/ceo/CeoDao.java
- com.example.demo.src.ceo.CeoDao
+com/example/demo/src/ceo/model/GetCeoReq.java
+ com.example.demo.src.ceo.model.GetCeoReq
 com/example/demo/utils/ValidationRegex.java
  com.example.demo.utils.ValidationRegex
 com/example/demo/src/ceo/model/Ceo.java
  com.example.demo.src.ceo.model.Ceo
 com/example/demo/src/ceo/model/PostLoginReq.java
  com.example.demo.src.ceo.model.PostLoginReq
-com/example/demo/config/BaseResponseStatus.java
- com.example.demo.config.BaseResponseStatus
+com/example/demo/src/ceo/model/PostCeoReq.java
+ com.example.demo.src.ceo.model.PostCeoReq
 com/example/demo/src/ceo/model/PatchCeoPwdReq.java
  com.example.demo.src.ceo.model.PatchCeoPwdReq
-com/example/demo/src/ceo/model/PostStoreReq.java
- com.example.demo.src.ceo.model.PostStoreReq
+com/example/demo/src/ceo/model/PatchCeoPwdRes.java
+ com.example.demo.src.ceo.model.PatchCeoPwdRes
 com/example/demo/src/ceo/model/PostLoginRes.java
  com.example.demo.src.ceo.model.PostLoginRes
 com/example/demo/src/store/model/GetStoreImgRes.java
@@ -30,8 +30,8 @@ com/example/demo/src/ceo/model/GetCeoRes.java
  com.example.demo.src.ceo.model.GetCeoRes
 com/example/demo/src/WebSecurityConfig.java
  com.example.demo.src.WebSecurityConfig
-com/example/demo/src/ceo/model/PostCeoReq.java
- com.example.demo.src.ceo.model.PostCeoReq
+com/example/demo/src/store/model/PatchStoreImgUrlReq.java
+ com.example.demo.src.store.model.PatchStoreImgUrlReq
 com/example/demo/src/test/TestController.java
  com.example.demo.src.test.TestController
 com/example/demo/src/store/model/PatchStoreReq.java
@@ -40,23 +40,23 @@ com/example/demo/src/ceo/model/PostCeoRes.java
  com.example.demo.src.ceo.model.PostCeoRes
 com/example/demo/config/secret/Secret.java
  com.example.demo.config.secret.Secret
-com/example/demo/utils/JwtService.java
- com.example.demo.utils.JwtService
-com/example/demo/src/ceo/model/PatchCeoPwdRes.java
- com.example.demo.src.ceo.model.PatchCeoPwdRes
-com/example/demo/config/BaseResponse.java
- com.example.demo.config.BaseResponse
-com/example/demo/src/ceo/model/GetCeoReq.java
- com.example.demo.src.ceo.model.GetCeoReq
-com/example/demo/src/store/model/PatchStoreImgUrlReq.java
- com.example.demo.src.store.model.PatchStoreImgUrlReq
-com/example/demo/config/BaseException.java
- com.example.demo.config.BaseException
 com/example/demo/DemoApplication.java
  com.example.demo.DemoApplication
 com/example/demo/src/ceo/CeoController.java
  com.example.demo.src.ceo.CeoController
 com/example/demo/src/ceo/CeoService.java
  com.example.demo.src.ceo.CeoService
+com/example/demo/config/BaseResponseStatus.java
+ com.example.demo.config.BaseResponseStatus
+com/example/demo/src/ceo/model/PostStoreReq.java
+ com.example.demo.src.ceo.model.PostStoreReq
 com/example/demo/src/ceo/CeoProvider.java
  com.example.demo.src.ceo.CeoProvider
+com/example/demo/src/ceo/CeoDao.java
+ com.example.demo.src.ceo.CeoDao
+com/example/demo/config/BaseException.java
+ com.example.demo.config.BaseException
+com/example/demo/utils/JwtService.java
+ com.example.demo.utils.JwtService
+com/example/demo/config/BaseResponse.java
+ com.example.demo.config.BaseResponse
