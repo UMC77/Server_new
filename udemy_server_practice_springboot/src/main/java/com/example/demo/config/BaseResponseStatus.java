@@ -36,6 +36,10 @@ public enum BaseResponseStatus {
     STORE_EMPTY_STORE_IDX(false, 2015, "가게 인덱스 값을 확인해주세요."),
     STORE_EMPTY_CEO_STORE(false, 2016, "사장에게 해당하는 가게가 없습니다."),
 
+    // /menu
+    MENU_EMPTY_MENU_IDX(false, 2017, "메뉴 인덱스 값을 확인해주세요."),
+    MENU_EMPTY_STORE_MENU(false, 2018, "가게에 해당하는 메뉴가 없습니다."),
+
     // [POST]
     // /ceo
 //    POST_USERS_INVALID_EMAIL(false, 2016, "이메일 형식을 확인해주세요."),
@@ -62,6 +66,13 @@ public enum BaseResponseStatus {
     POST_STORE_EMPTY_STORE_HOLIDAY(false, 2037, "매장 휴무일을 입력해주세요."),
     POST_STORE_EMPTY_IMGRUL(false, 2038, "매장 사진을 등록해주세요."),
 
+    // /menu
+    POST_MENU_EMPTY_IMGRUL(false, 2039, "메뉴 사진을 등록해주세요."),
+    POST_MENU_EMPTY_MENU_NAME(false, 2040, "메뉴 이름을 등록해주세요."),
+    POST_MENU_EMPTY_MENU_PRICE(false, 2041, "메뉴 가격을 등록해주세요."),
+//    POST_MENU_EMPTY_SALE_CHK(false, 2042, "메뉴 판매여부를 등록해주세요."),
+
+
     //[PATCH]
     // /ceo
     PATCH_CEO_EMPTY_MODIFY_PWD(false,2050,"수정할 사장 비밀번호를 입력해주세요."),
@@ -76,6 +87,11 @@ public enum BaseResponseStatus {
     PATCH_STORE_EMPTY_MODIFY_STORE_PHONE(false,2057,"수정할 가게 전화번호를 입력해주세요."),
     PATCH_STORE_EMPTY_MODIFY_STORE_TIME(false,2058,"수정할 운영일을 입력해주세요."),
     PATCH_STORE_EMPTY_MODIFY_STORE_HOLI(false,2059,"수정할 휴무일을 입력해주세요."),
+
+    // /menu
+    PATCH_MENU_EMPTY_MODIFY_MENU_IMGURL(false,2060,"수정할 메뉴 이미지를 등록해주세요."),
+    PATCH_MENU_EMPTY_MODIFY_MENU_NAME(false,2061,"수정할 메뉴명을 입력해주세요."),
+    PATCH_MENU_EMPTY_MODIFY_MENU_PRICE(false,2062,"수정할 메뉴 가격을 입력해주세요."),
 
 
 
@@ -102,7 +118,12 @@ public enum BaseResponseStatus {
     MODIFY_FAIL_CEO_PWD(false,4020,"사장 비밀번호 수정 실패"),
 
     // /store/{store_idx}
-    MODIFY_FAIL_STORE(false,4021,"가게 정보 수정 실패"),
+    MODIFY_FAIL_STORE(false,4021,"가게 수정 실패"),
+
+    // /menu/{menu_idx}
+    MODIFY_FAIL_MENU(false,4022,"메뉴 수정 실패"),
+    DELETE_FAIL_MENU(false,4023,"메뉴 삭제 실패"),
+
 
     PASSWORD_ENCRYPTION_ERROR(false, 4040, "비밀번호 암호화에 실패하였습니다."),
     PASSWORD_DECRYPTION_ERROR(false, 4041, "비밀번호 복호화에 실패하였습니다.");

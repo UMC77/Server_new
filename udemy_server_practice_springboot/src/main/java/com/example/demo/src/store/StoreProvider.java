@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.example.demo.config.BaseResponseStatus.DATABASE_ERROR;
+import static com.example.demo.config.BaseResponseStatus.*;
 
 //Provider : Read의 비즈니스 로직 처리
 @Service
@@ -65,6 +65,7 @@ public class StoreProvider {
             GetStoreRes getStore = storeDao.viewStore(ceo_idx);
             return getStore;
         } catch(Exception exception){
+            System.out.println(exception);
             throw new BaseException(DATABASE_ERROR);
         }
 

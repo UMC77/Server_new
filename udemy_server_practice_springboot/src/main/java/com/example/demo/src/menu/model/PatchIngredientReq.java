@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PostMenuRes {
-    private int menu_idx;
+public class PatchIngredientReq {
+    private String modify_ingrdt_name;  //수정 재료명
 }

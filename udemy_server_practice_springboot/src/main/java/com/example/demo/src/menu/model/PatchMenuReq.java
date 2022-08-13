@@ -1,20 +1,19 @@
-package com.example.demo.src.store.model;
+package com.example.demo.src.menu.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
-public class PatchStoreReq {
-//    private String ceo_idx;
-    private String List<PatchStoreImgUrlReq> modify_store_img_url;
-    private String modify_store_name;   //상호명
-    private String modify_store_num;    //사업자등록번호
-    private String modify_store_address;    //매장주소
-    private String modify_store_phone;  //매장 전화번호
-    private String modify_store_time;   //매장 운영시간
-    private String modify_store_holiday;    //매장 휴무일
-    private String modify_store_info;   //매장 소개
+public class PatchMenuReq {
+    private String modify_menu_img_url; //수정 메뉴 사진
+    private String modify_menu_name;   //수정 메뉴명
+    private int modify_menu_price;    //수정 가격
+    private String modify_menu_sale_chk;   //수정 판매여부
+    private String modify_menu_info;  //수정 메뉴 설명
+    private List<PatchIngredientReq> modify_menu_ingrdt;    //수정 재료 리스트
 }
