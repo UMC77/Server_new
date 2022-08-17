@@ -1,4 +1,4 @@
-package com.example.demo.src.user.model;
+package com.example.demo.src.review.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class DeleteUserReq {
-    private int userIdx;
+public class PostCommentRes {
+    private int review_idx;
 }
