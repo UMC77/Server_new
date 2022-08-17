@@ -71,8 +71,14 @@ public enum BaseResponseStatus {
 
     // 5000 : 필요시 만들어서 쓰세요
     // 6000 : 필요시 만들어서 쓰세요
-    SEARCH_WORD_EMPTY(false,6000,"검색어를 입력하세요.");
+    SEARCH_WORD_EMPTY(false,6000,"검색어를 입력하세요."),
 
+    REVIEW_STORE_EMPTY(false, 7000, "빵집 이름을 입력하세요."),
+    REVIEW_SCORE_EMPTY(false, 7001, "별점을 입력하세요."),
+    REVIEW_NICKNAME_EMPTY(false, 7002, "닉네임을 입력하세요."),
+    RESERVE_RESERVE_EMPTY(false, 7003, "예약유형을 입력하세요."),
+    RESERVE_MENU_EMPTY(false, 7004, "예약 메뉴를 입력하세요."),
+    RESERVE_TIME_EMPTY(false, 7005, "예약 시간을 입력하세요.");
 
     private final boolean isSuccess;
     private final int code;
