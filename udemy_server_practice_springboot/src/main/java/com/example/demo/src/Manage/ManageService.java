@@ -4,12 +4,13 @@ import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.Manage.model.*;
 import com.example.demo.utils.JwtService;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.logging.Logger;
+
 
 @Service
 public class ManageService {
@@ -48,16 +49,16 @@ public class ManageService {
     //예약 입력
     public void inputReserve(ReserveReq reserveReq) throws BaseException{
         try {
-            manageDao.inputReserve(reviewReq);
+            manageDao.inputReserve(reserveReq);
         } catch (Exception exception){
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
         }
     }
 
     //예약 반환
-    public ReserveRes getReserve(String store_name, String user_nickname) throws BaseException{
+    public List<ReserveRes> getReserve(String store_name, String user_nickname) throws BaseException{
         try{
-            ReserveRes reserveRes = manageDao.getReserve(store_name, user_nickname);
+            List<ReserveRes> reserveRes = manageDao.getReserve(store_name, user_nickname);
             return reserveRes;
         } catch (Exception exception){
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
@@ -74,9 +75,9 @@ public class ManageService {
     }
 
     //찜 반환
-    public DibRes getDib(String user_nickname) throws BaseException{
+    public List<DibRes> getDib(String user_nickname) throws BaseException{
         try{
-            DibRes dibRes = manageDao.getDib(user_nickname);
+            List<DibRes> dibRes = manageDao.getDib(user_nickname);
             return dibRes;
         } catch (Exception exception){
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR.DATABASE_ERROR);

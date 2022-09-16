@@ -50,7 +50,7 @@ public class ManageController {
             return new BaseResponse<>(BaseResponseStatus.REVIEW_NICKNAME_EMPTY);
 
         try{
-            manageService.inputReivew(reviewReq);
+            manageService.inputReview(reviewReq);
             String str = "리뷰를 작성하였습니다.";
             return new BaseResponse<>(str);
         } catch (BaseException baseException){
@@ -114,7 +114,7 @@ public class ManageController {
     // 서버 -> 앱 예약 (가게명과 유저 닉네임 body로 입력받기)
     @ResponseBody
     @GetMapping("/reserve")
-    public BaseResponse<ReserveRes> getReserve(@RequestBody String store_name, @ResponseBody String user_nickname){
+    public BaseResponse<List<ReserveRes>> getReserve(@RequestBody String store_name, String user_nickname){
         //빵집 이름 공백 체크
         if(store_name == null)
             return new BaseResponse<>(BaseResponseStatus.REVIEW_STORE_EMPTY);
@@ -124,7 +124,7 @@ public class ManageController {
             return new BaseResponse<>(BaseResponseStatus.REVIEW_NICKNAME_EMPTY);
 
         try{
-            ReserveRes reserveRes = manageService.getReserve(store_name, user_nickname);
+            List<ReserveRes> reserveRes = manageService.getReserve(store_name, user_nickname);
             return new BaseResponse<>(reserveRes);
         } catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -156,12 +156,12 @@ public class ManageController {
     //서버 -> 앱 찜 반환 (닉네임만 body로 받아도 될듯)
     @ResponseBody
     @GetMapping("/dib")
-    public BaseResponse<DibRes> getDib(@ResponseBody String user_nickname) {
+    public BaseResponse<List<DibRes>> getDib(@RequestBody String user_nickname) {
         if(user_nickname == null)
             return new BaseResponse<>(BaseResponseStatus.REVIEW_NICKNAME_EMPTY);
 
         try{
-            DibRes dibRes = manageService.getDib(user_nickname);
+            List<DibRes> dibRes = manageService.getDib(user_nickname);
             return new BaseResponse<>(dibRes);
         } catch (BaseException baseException){
             return new BaseResponse<>((baseException.getStatus()));

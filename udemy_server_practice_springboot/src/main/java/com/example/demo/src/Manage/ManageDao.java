@@ -45,23 +45,45 @@ public class ManageDao {
 
     //예약 입력
     public void inputReserve(ReserveReq reserveReq){
+        String inputReserveQuery = "INSERT INTO store_reserve(reserve_store_name, reserve_type, reserve_menu, reserve_price, reserve_user_nick_name, reserve_time) value (?,?,?,?,?,?)";
+        Object[] inputReserveParams = new Object[]{reserveReq.getStore_name(), reserveReq.getStore_reserve(), reserveReq.getReserve_menu(),reserveReq.getMenu_price(), reserveReq.getUser_nickname(), reserveReq.getReserve_time()};
+        this.jdbcTemplate.update(inputReserveQuery, inputReserveParams);
 
     }
 
     //예약 반환
-    public ReserveRes getReserve(String store_name, String user_nickname){
+    public List<ReserveRes> getReserve(String store_name, String user_nickname){
+        String getReserveQuery = "select reserve_store_name, reserve_type, reserve_menu, reserve_price, reserve_user_nick_name, reserve_time FROM store_reserve WHERE reserve_store_name = ?";
+        String getReserveParam = user_nickname;
+        return this.jdbcTemplate.query(getReserveQuery,
+                (rs, rowNum) -> new ReserveRes(
+                        rs.getString("store_name"),
+                        rs.getString("store_reserve"),
+                        rs.getString("reserve_menu"),
+                        rs.getString("menu_price"),
+                        rs.getString("user_nickname"),
+                        rs.getString("reserve_time")
+                ), getReserveParam);
 
     }
 
 
     //찜 입력
     public void inputDib(DibReq dibReq){
+        String inputDibQuery = " INSERT INTO user_dibs(dibs_store_name, dibs_user_nickname) value (?,?)";
+        Object[] inputDibParams = new Object[]{dibReq.getStore_name(), dibReq.getUser_nickname()};
+        this.jdbcTemplate.update(inputDibQuery,inputDibParams);
 
     }
 
     //찜 반환
-    public DibRes getDip(String user_nickname) {
-
+    public List<DibRes> getDib(String user_nickname) {
+        String getDibQuery = "select dibs_store_name FROM user_dibs WHERE dibs_user_nickname = ?";
+        String getDibParam = user_nickname;
+        return this.jdbcTemplate.query(getDibQuery,
+                (rs, rowNum) -> new DibRes(
+                        rs.getString("store_name")
+                ),getDibParam);
     }
 
 }
