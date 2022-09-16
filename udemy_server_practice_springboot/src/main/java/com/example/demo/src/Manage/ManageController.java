@@ -5,11 +5,13 @@ import com.example.demo.config.BaseResponse;
 import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.src.Manage.model.*;
 import com.example.demo.utils.JwtService;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.logging.Logger;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/manage")
@@ -32,7 +34,7 @@ public class ManageController {
     }
 
     //앱 -> 서버 리뷰 입력
-    @RequestBody
+    @ResponseBody
     @PostMapping("/input_review")
     public BaseResponse<String> inputReview(@RequestBody ReviewReq reviewReq){
         //빵집 이름 공백 체크
@@ -60,13 +62,13 @@ public class ManageController {
     //서버 -> 앱 (가게 이름을 body로 받아와야 함) 리뷰 반환
     @ResponseBody
     @GetMapping("/review")
-    public BaseResponse<ReviewRes> getReview(@RequestBody String store_name){
+    public BaseResponse<List<ReviewRes>> getReview(@RequestBody String store_name){
         //빵집 이름 공백 체크
         if(store_name == null)
             return new BaseResponse<>(BaseResponseStatus.REVIEW_STORE_EMPTY);
 
         try{
-            ReviewRes reviewRes = manageService.getReview(store_name);
+            List<ReviewRes> reviewRes = manageService.getReview(store_name);
             return new BaseResponse<>(reviewRes);
         } catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
@@ -111,8 +113,8 @@ public class ManageController {
 
     // 서버 -> 앱 예약 (가게명과 유저 닉네임 body로 입력받기)
     @ResponseBody
-    @GetMapping("/review")
-    public BaseResponse<ReserveRes> getReview(@RequestBody String store_name, @ResponseBody String user_nickname){
+    @GetMapping("/reserve")
+    public BaseResponse<ReserveRes> getReserve(@RequestBody String store_name, @ResponseBody String user_nickname){
         //빵집 이름 공백 체크
         if(store_name == null)
             return new BaseResponse<>(BaseResponseStatus.REVIEW_STORE_EMPTY);
@@ -122,7 +124,7 @@ public class ManageController {
             return new BaseResponse<>(BaseResponseStatus.REVIEW_NICKNAME_EMPTY);
 
         try{
-            ReserveRes reserveRes = manageService.getReview(store_name, user_nickname);
+            ReserveRes reserveRes = manageService.getReserve(store_name, user_nickname);
             return new BaseResponse<>(reserveRes);
         } catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));

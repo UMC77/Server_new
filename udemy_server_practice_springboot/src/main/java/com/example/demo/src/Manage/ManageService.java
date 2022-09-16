@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 @Service
@@ -35,9 +36,9 @@ public class ManageService {
     }
 
     //리뷰 반환
-    public ReviewRes getReview(String store_name) throws BaseException{
+    public List<ReviewRes> getReview(String store_name) throws BaseException{
         try{
-            ReviewRes reviewRes = manageDao.getReview(store_name);
+            List<ReviewRes> reviewRes = manageDao.getReview(store_name);
             return reviewRes;
         } catch (Exception exception){
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
