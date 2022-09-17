@@ -22,4 +22,5 @@ public class SearchDao {
     public List<SearchRes> search(String search_word){
 
     }
+
 }
