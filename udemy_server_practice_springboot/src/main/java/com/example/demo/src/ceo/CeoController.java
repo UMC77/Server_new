@@ -73,15 +73,8 @@ public class CeoController {
         if(postCeoReq.getCeo_name() == null)
             return new BaseResponse<>(POST_CEO_EMPTY_CEO_NAME);
 
-        //비밀번호 확인 공백 check
-        if(postCeoReq.getCeo_pwd_chk().equals("")) {
-            return new BaseResponse<>(CEO_EMPTY_PWD_CHK);
-        }
 
-        //비밀번호 확인 여부
-        if(!postCeoReq.getCeo_pwd().equals(postCeoReq.getCeo_pwd_chk())) {
-            return new BaseResponse<>(CEO_ERROR_CEO_PWD);
-        }
+
 
 
         try{
@@ -114,11 +107,6 @@ public class CeoController {
             return new BaseResponse<>(POST_CEO_EMPTY_ADDRESS_DETAIL);
 
         try{
-            //주소와 상세 주소 결합
-            String address = postStoreReq.getStore_address()+ " " + postStoreReq.getStore_address_detail();
-            System.out.println(address);
-            postStoreReq.setStore_address(address);
-
 
             int ceoIdxByJwt = jwtService.getCeoIdx();
 
@@ -132,35 +120,35 @@ public class CeoController {
     }
 
     /* 비밀번호 변경 */
-    @ResponseBody
-    @PatchMapping("/modifyceopwd")
-    public BaseResponse<PatchCeoPwdRes> modifyCeoPwd(@RequestBody PatchCeoPwdReq patchCeoPwdReq){
-        //아이디 공백 check
-        if(patchCeoPwdReq.getCeo_id()==null) {
-            return new BaseResponse<>(CEO_EMPTY_CEO_ID);
-        }
-
-        //수정 비밀번호 공백 check
-        if(patchCeoPwdReq.getModify_ceo_pwd()==null) {
-            return new BaseResponse<>(PATCH_CEO_EMPTY_MODIFY_PWD);
-        }
-
-        //수정 비밀번호 길이 check
-        if(patchCeoPwdReq.getModify_ceo_pwd().length()<8)
-            return new BaseResponse<>(PATCH_CEO_INVALID_MODIFY_PWD_LEN);
-
-        //수정 비밀번호 영문, 숫자만 허용
-        if(!isRegexIPwd(patchCeoPwdReq.getModify_ceo_pwd()))
-            return new BaseResponse<>(PATCH_CEO_INVALID_MODIFY_PWD);
-
-
-        try {
-            PatchCeoPwdRes patchCeoPwdRes = ceoService.modifyCeoPwd(patchCeoPwdReq);
-            return new BaseResponse<>(patchCeoPwdRes);
-        } catch (BaseException exception) {
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }
+//    @ResponseBody
+//    @PatchMapping("/modifyceopwd")
+//    public BaseResponse<PatchCeoPwdRes> modifyCeoPwd(@RequestBody PatchCeoPwdReq patchCeoPwdReq){
+//        //아이디 공백 check
+//        if(patchCeoPwdReq.getCeo_id()==null) {
+//            return new BaseResponse<>(CEO_EMPTY_CEO_ID);
+//        }
+//
+//        //수정 비밀번호 공백 check
+//        if(patchCeoPwdReq.getModify_ceo_pwd()==null) {
+//            return new BaseResponse<>(PATCH_CEO_EMPTY_MODIFY_PWD);
+//        }
+//
+//        //수정 비밀번호 길이 check
+//        if(patchCeoPwdReq.getModify_ceo_pwd().length()<8)
+//            return new BaseResponse<>(PATCH_CEO_INVALID_MODIFY_PWD_LEN);
+//
+//        //수정 비밀번호 영문, 숫자만 허용
+//        if(!isRegexIPwd(patchCeoPwdReq.getModify_ceo_pwd()))
+//            return new BaseResponse<>(PATCH_CEO_INVALID_MODIFY_PWD);
+//
+//
+//        try {
+//            PatchCeoPwdRes patchCeoPwdRes = ceoService.modifyCeoPwd(patchCeoPwdReq);
+//            return new BaseResponse<>(patchCeoPwdRes);
+//        } catch (BaseException exception) {
+//            return new BaseResponse<>((exception.getStatus()));
+//        }
+//    }
 
     /* 로그인 */
     @ResponseBody

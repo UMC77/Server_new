@@ -105,30 +105,30 @@ public class CeoService {
 
     }
 
-    /* 비밀번호 변경 */
-    public PatchCeoPwdRes modifyCeoPwd(PatchCeoPwdReq patchCeoPwdReq) throws BaseException {
-        //아이디 존재여부 check
-        if(ceoProvider.checkCeoId(patchCeoPwdReq.getCeo_id()) ==0){
-            throw new BaseException(CEO_EMPTY_CEO_ID);
-        }
-
-        String pwd;
-        try{
-            //비밀번호 암호화
-            pwd = new SHA256().encrypt(patchCeoPwdReq.getModify_ceo_pwd());
-            patchCeoPwdReq.setModify_ceo_pwd(pwd);
-        } catch (Exception ignored) {
-            throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
-        }
-        try{
-            int ceoIdx = ceoDao.modifyCeoPwd(patchCeoPwdReq);
-
-            //jwt 발급.
-            String jwt = jwtService.createCeoJwt(ceoIdx);
-            return new PatchCeoPwdRes(jwt,ceoIdx);
-        } catch (Exception exception) {
-            throw new BaseException(DATABASE_ERROR);
-        }
-    }
+//    /* 비밀번호 변경 */
+//    public PatchCeoPwdRes modifyCeoPwd(PatchCeoPwdReq patchCeoPwdReq) throws BaseException {
+//        //아이디 존재여부 check
+//        if(ceoProvider.checkCeoId(patchCeoPwdReq.getCeo_id()) ==0){
+//            throw new BaseException(CEO_EMPTY_CEO_ID);
+//        }
+//
+//        String pwd;
+//        try{
+//            //비밀번호 암호화
+//            pwd = new SHA256().encrypt(patchCeoPwdReq.getModify_ceo_pwd());
+//            patchCeoPwdReq.setModify_ceo_pwd(pwd);
+//        } catch (Exception ignored) {
+//            throw new BaseException(PASSWORD_ENCRYPTION_ERROR);
+//        }
+//        try{
+//            int ceoIdx = ceoDao.modifyCeoPwd(patchCeoPwdReq);
+//
+//            //jwt 발급.
+//            String jwt = jwtService.createCeoJwt(ceoIdx);
+//            return new PatchCeoPwdRes(jwt,ceoIdx);
+//        } catch (Exception exception) {
+//            throw new BaseException(DATABASE_ERROR);
+//        }
+//    }
 
 }

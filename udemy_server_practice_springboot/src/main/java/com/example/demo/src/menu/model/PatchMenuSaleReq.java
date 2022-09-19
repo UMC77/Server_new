@@ -6,7 +6,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class PatchMenuSaleReq {
     private String modify_menu_sale_chk;   //수정 판매여부
 }

@@ -3,9 +3,7 @@ package com.example.demo.src.store;
 
 import com.example.demo.config.BaseException;
 
-import com.example.demo.src.ceo.model.PatchStoreReq;
-import com.example.demo.src.ceo.model.PostStoreReq;
-import com.example.demo.src.ceo.model.PostStoreRes;
+import com.example.demo.src.store.model.PatchStoreReq;
 import com.example.demo.utils.JwtService;
 import com.example.demo.utils.SHA256;
 import org.slf4j.Logger;
@@ -33,20 +31,6 @@ public class StoreService {
 
     }
 
-//    /* 가게 정보 추가 */
-//    public PostStoreRes addStore(int ceo_idx, PostStoreReq postStoreReq) throws BaseException {
-//
-//        try{
-//            int store_idx = storeDao.addStore(ceo_idx, postStoreReq);
-//            for(int i=0; i< postStoreReq.getStore_img_url().size(); i++) {
-//                ceoDao.insertStoreImgs(store_idx, postStoreReq.getStore_img_url().get(i));  //**dao에만 있는 메소드
-//            }
-//            return new PostStoreRes(store_idx);
-//        } catch (Exception exception) {
-//            throw new BaseException(DATABASE_ERROR);
-//        }
-//    }
-
     /* 가게 정보 수정 */
     public void modifyStore(int ceo_idx,int store_idx, PatchStoreReq patchStoreReq) throws BaseException {
 
@@ -66,14 +50,18 @@ public class StoreService {
         }
 
         try{
-            int result = storeDao.modifyStore(store_idx,patchStoreReq);
+            int res_idx = storeDao.modifyStore(store_idx,patchStoreReq);
+
+            storeDao.deleteStoreImgs(res_idx);
+
             for(int i=0; i< patchStoreReq.getModify_store_img_url().size(); i++) {
-                ceoDao.modifyStoreImgs(store_idx, patchStoreReq.getModify_store_img_url().get(i));  //**dao에만 있는 메소드
+                storeDao.modifyStoreImgs(res_idx, patchStoreReq.getModify_store_img_url().get(i));
             }
-            if(result == 0){
+            if(res_idx == 0){
                 throw new BaseException(MODIFY_FAIL_STORE);
             }
         } catch(Exception exception){
+            System.out.println(exception);
             throw new BaseException(DATABASE_ERROR);
         }
     }

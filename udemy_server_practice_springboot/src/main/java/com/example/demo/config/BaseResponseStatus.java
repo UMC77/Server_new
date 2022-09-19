@@ -39,60 +39,76 @@ public enum BaseResponseStatus {
     // /menu
     MENU_EMPTY_MENU_IDX(false, 2017, "메뉴 인덱스 값을 확인해주세요."),
     MENU_EMPTY_STORE_MENU(false, 2018, "가게에 해당하는 메뉴가 없습니다."),
+    MENU_EMPTY_CATEGORY_IDX(false, 2019, "카테고리 인덱스 값을 확인해주세요."),
+    MENU_EMPTY_STORE_CATEGORY(false, 2020, "가게에 해당하는 카테고리가 없습니다."),
+    MENU_EMPTY_SEARCH_KEYWORD(false, 2021, "검색어를 입력해주세요"),
+
+
+    // /reservation
+    RESERVATION_EMPTY_RESERVATION_IDX(false, 2022, "예약 인덱스 값을 확인해주세요."),
+    RESERVATION_EMPTY_STORE_RESERVATION(false, 2023, "가게에 해당 예약이 없습니다."),
+
+    // /review
+    REVIEW_EMPTY_REVIEW_IDX(false, 2024, "리뷰 인덱스 값을 확인해주세요."),
+    REVIEW_EMPTY_STORE_REVIEW(false, 2025, "가게에 해당 리뷰가 없습니다."),
+
 
     // [POST]
     // /ceo
 //    POST_USERS_INVALID_EMAIL(false, 2016, "이메일 형식을 확인해주세요."),
-    POST_CEO_INVALID_ID(false, 2020, "아이디는 공백 없는 영대소문자 및 숫자만 허용됩니다."),
-    POST_CEO_INVALID_ID_LEN(false, 2021, "아이디는 10자 이내만 허용됩니다."),
-    POST_CEO_INVALID_PWD(false, 2022, "비밀번호는 공백 없는 영대소문자 및 숫자만 허용됩니다."),
-    POST_CEO_INVALID_PWD_LEN(false, 2023, "비밀번호는 8자 이상만 허용됩니다."),
-    POST_CEO_EMPTY_ID(false, 2024, "아이디를 입력해주세요."),
-    POST_CEO_EMPTY_STORE_NUM(false, 2025, "사업자등록번호를 입력해주세요."),
-    POST_CEO_EMPTY_CEO_PHONE(false, 2026, "핸드폰 번호를 입력해주세요."),
-    POST_CEO_EMPTY_CEO_NAME(false, 2027, "사장님 이름을 입력해주세요."),
-    POST_CEO_EMPTY_STORE_NAME(false, 2028, "상호명을 입력해주세요."),
-    POST_CEO_EMPTY_STORE_PHONE(false, 2029, "매장 전화 번호를 입력해주세요."),
-    POST_CEO_EMPTY_ADDRESS(false, 2030, "주소를 입력해주세요."),
-    POST_CEO_EMPTY_ADDRESS_DETAIL(false, 2031, "상세 주소를 입력해주세요."),
-    POST_CEO_EMPTY_PWD(false, 2032, "비밀번호를 입력해주세요."),
-    POST_CEO_EXISTS_STORE_NUM(false,2033,"중복된 사업자등록번호입니다."),
-    POST_CEO_EXISTS_CEO_ID(false,2034,"중복된 아이디입니다."),
-    POST_CEO_EXISTS_CEO_PHONE(false,2035,"중복된 핸드폰 번호입니다."),
+    POST_CEO_INVALID_ID(false, 2040, "아이디는 공백 없는 영대소문자 및 숫자만 허용됩니다."),
+    POST_CEO_INVALID_ID_LEN(false, 2041, "아이디는 10자 이내만 허용됩니다."),
+    POST_CEO_INVALID_PWD(false, 2042, "비밀번호는 공백 없는 영대소문자 및 숫자만 허용됩니다."),
+    POST_CEO_INVALID_PWD_LEN(false, 2043, "비밀번호는 8자 이상만 허용됩니다."),
+    POST_CEO_EMPTY_ID(false, 2044, "아이디를 입력해주세요."),
+    POST_CEO_EMPTY_STORE_NUM(false, 2045, "사업자등록번호를 입력해주세요."),
+    POST_CEO_EMPTY_CEO_PHONE(false, 2046, "핸드폰 번호를 입력해주세요."),
+    POST_CEO_EMPTY_CEO_NAME(false, 2047, "사장님 이름을 입력해주세요."),
+    POST_CEO_EMPTY_STORE_NAME(false, 2048, "상호명을 입력해주세요."),
+    POST_CEO_EMPTY_STORE_PHONE(false, 2049, "매장 전화 번호를 입력해주세요."),
+    POST_CEO_EMPTY_ADDRESS(false, 2050, "주소를 입력해주세요."),
+    POST_CEO_EMPTY_ADDRESS_DETAIL(false, 2051, "상세 주소를 입력해주세요."),
+    POST_CEO_EMPTY_PWD(false, 2052, "비밀번호를 입력해주세요."),
+    POST_CEO_EXISTS_STORE_NUM(false,2053,"중복된 사업자등록번호입니다."),
+    POST_CEO_EXISTS_CEO_ID(false,2054,"중복된 아이디입니다."),
+    POST_CEO_EXISTS_CEO_PHONE(false,2055,"중복된 핸드폰 번호입니다."),
 
 
     // /store
-    POST_STORE_EMPTY_STORE_TIME(false, 2036, "매장 운영시간을 입력해주세요."),
-    POST_STORE_EMPTY_STORE_HOLIDAY(false, 2037, "매장 휴무일을 입력해주세요."),
-    POST_STORE_EMPTY_IMGRUL(false, 2038, "매장 사진을 등록해주세요."),
+    POST_STORE_EMPTY_STORE_TIME(false, 2056, "매장 운영시간을 입력해주세요."),
+    POST_STORE_EMPTY_STORE_HOLIDAY(false, 2057, "매장 휴무일을 입력해주세요."),
+    POST_STORE_EMPTY_IMGRUL(false, 2058, "매장 사진을 등록해주세요."),
 
     // /menu
-    POST_MENU_EMPTY_IMGRUL(false, 2039, "메뉴 사진을 등록해주세요."),
-    POST_MENU_EMPTY_MENU_NAME(false, 2040, "메뉴 이름을 등록해주세요."),
-    POST_MENU_EMPTY_MENU_PRICE(false, 2041, "메뉴 가격을 등록해주세요."),
+    POST_MENU_EMPTY_IMGRUL(false, 2059, "메뉴 사진을 등록해주세요."),
+    POST_MENU_EMPTY_MENU_NAME(false, 2060, "메뉴 이름을 등록해주세요."),
+    POST_MENU_EMPTY_MENU_PRICE(false, 2061, "메뉴 가격을 등록해주세요."),
 //    POST_MENU_EMPTY_SALE_CHK(false, 2042, "메뉴 판매여부를 등록해주세요."),
+
 
 
     //[PATCH]
     // /ceo
-    PATCH_CEO_EMPTY_MODIFY_PWD(false,2050,"수정할 사장 비밀번호를 입력해주세요."),
-    PATCH_CEO_INVALID_MODIFY_PWD_LEN(false,2051,"수정할 사장 비밀번호는 8자 이상만 허용됩니다."),
-    PATCH_CEO_INVALID_MODIFY_PWD(false,2052,"수정할 사장 비밀번호는 영대소문자 및 숫자만 허용됩니다."),
+    PATCH_CEO_EMPTY_MODIFY_PWD(false,2080,"수정할 사장 비밀번호를 입력해주세요."),
+    PATCH_CEO_INVALID_MODIFY_PWD_LEN(false,2081,"수정할 사장 비밀번호는 8자 이상만 허용됩니다."),
+    PATCH_CEO_INVALID_MODIFY_PWD(false,2082,"수정할 사장 비밀번호는 영대소문자 및 숫자만 허용됩니다."),
 
     // /store
-    PATCH_STORE_EMPTY_MODIFY_STORE_NAME(false,2053,"수정할 상호명을 입력해주세요."),
-    PATCH_STORE_EMPTY_MODIFY_IMGRUL(false,2054,"수정한 사진을 등록해주세요."),
-    PATCH_STORE_EMPTY_MODIFY_STORE_NUM(false,2055,"수정할 사업자 등록번호를 입력해주세요."),
-    PATCH_STORE_EMPTY_MODIFY_STORE_ADDRESS(false,2056,"수정할 가게 주소를 입력해주세요."),
-    PATCH_STORE_EMPTY_MODIFY_STORE_PHONE(false,2057,"수정할 가게 전화번호를 입력해주세요."),
-    PATCH_STORE_EMPTY_MODIFY_STORE_TIME(false,2058,"수정할 운영일을 입력해주세요."),
-    PATCH_STORE_EMPTY_MODIFY_STORE_HOLI(false,2059,"수정할 휴무일을 입력해주세요."),
+    PATCH_STORE_EMPTY_MODIFY_STORE_NAME(false,2083,"수정할 상호명을 입력해주세요."),
+    PATCH_STORE_EMPTY_MODIFY_IMGRUL(false,2084,"수정한 사진을 등록해주세요."),
+    PATCH_STORE_EMPTY_MODIFY_STORE_NUM(false,2085,"수정할 사업자 등록번호를 입력해주세요."),
+    PATCH_STORE_EMPTY_MODIFY_STORE_ADDRESS(false,2086,"수정할 가게 주소를 입력해주세요."),
+    PATCH_STORE_EMPTY_MODIFY_STORE_PHONE(false,2087,"수정할 가게 전화번호를 입력해주세요."),
+    PATCH_STORE_EMPTY_MODIFY_STORE_TIME(false,2088,"수정할 운영일을 입력해주세요."),
+    PATCH_STORE_EMPTY_MODIFY_STORE_HOLI(false,2089,"수정할 휴무일을 입력해주세요."),
 
     // /menu
-    PATCH_MENU_EMPTY_MODIFY_MENU_IMGURL(false,2060,"수정할 메뉴 이미지를 등록해주세요."),
-    PATCH_MENU_EMPTY_MODIFY_MENU_NAME(false,2061,"수정할 메뉴명을 입력해주세요."),
-    PATCH_MENU_EMPTY_MODIFY_MENU_PRICE(false,2062,"수정할 메뉴 가격을 입력해주세요."),
+    PATCH_MENU_EMPTY_MODIFY_MENU_IMGURL(false,2090,"수정할 메뉴 이미지를 등록해주세요."),
+    PATCH_MENU_EMPTY_MODIFY_MENU_NAME(false,2091,"수정할 메뉴명을 입력해주세요."),
+    PATCH_MENU_EMPTY_MODIFY_MENU_PRICE(false,2092,"수정할 메뉴 가격을 입력해주세요."),
 
+    // /review
+    PATCH_REVIEW_EMPTY_MODIFY_REPLY(false,2093,"댓글을 입력해주세요."),
 
 
     /**
@@ -123,6 +139,13 @@ public enum BaseResponseStatus {
     // /menu/{menu_idx}
     MODIFY_FAIL_MENU(false,4022,"메뉴 수정 실패"),
     DELETE_FAIL_MENU(false,4023,"메뉴 삭제 실패"),
+
+    // /menu/{category_idx}
+    MODIFY_FAIL_CATEGORY(false,4024,"카테고리 수정 실패"),
+
+    //  /review
+    MODIFY_FAIL_REVIEW_REPLY(false,4025,"리뷰 댓글 업데이트 실패"),
+    DELETE_FAIL_REVIEW_REPLY(false,4026,"리뷰 댓글 삭제 실패"),
 
 
     PASSWORD_ENCRYPTION_ERROR(false, 4040, "비밀번호 암호화에 실패하였습니다."),

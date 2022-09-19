@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GetReviewRes {
     private int review_idx;   //리뷰 인덱스
-    private int review_store_idx; //가게 인덱스
+//    private int review_store_idx; //가게 인덱스
     private String user_id; //작성자 아이디
     private String review_time;   //리뷰 작성 날짜
     private float review_score;  //별점

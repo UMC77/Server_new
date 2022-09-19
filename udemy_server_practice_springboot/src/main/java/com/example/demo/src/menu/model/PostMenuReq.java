@@ -10,10 +10,11 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class PostMenuReq {
+//    private int category_idx;   //카테고리 인덱스
     private String menu_img_url;    //메뉴 사진
     private String menu_name;   //메뉴명
     private int menu_price;    //가격
-    private String menu_sale_chk;   //판매여부
     private String menu_info;  //메뉴 설명
+    private String menu_sale_chk;   //판매여부
     private List<PostIngredientReq> menu_ingrdt;    //재료 리스트
 }

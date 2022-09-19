@@ -16,6 +16,7 @@ public class GetReservationMenuRes {
     private String menu_name;   //예약 메뉴명
     private String menu_cnt;  //예약 메뉴 수량
     private int menu_price;    //예약 메뉴 가격
+
 }
 
 
