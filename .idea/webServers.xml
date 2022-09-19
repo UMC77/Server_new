@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="990710ea-038b-465e-a6a4-727b3bd19d41" name="awsServer" url="nibbangnaebbang.shop">
+        <fileTransfer accessType="SFTP" host="3.35.193.231" port="22" sshConfigId="f3df1c8e-5350-44bf-a890-5c5ee011475f" sshConfig="awsServer" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

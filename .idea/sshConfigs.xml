@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig connectionConfig="{&quot;serverAliveInterval&quot;:300,&quot;proxyParams&quot;:{&quot;proxyHost&quot;:&quot;nibbangnaebbang.shop&quot;,&quot;proxyPort&quot;:22,&quot;proxyType&quot;:&quot;NO_PROXY&quot;,&quot;authData&quot;:{&quot;proxyAuthType&quot;:&quot;USER_AND_PASSWORD&quot;}}}" host="3.35.193.231" id="f3df1c8e-5350-44bf-a890-5c5ee011475f" keyPath="$USER_HOME$/Documents/udemy77/umc_bread.pem" localPort="9000" port="22" customName="awsServer" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
+        <option name="customName" value="awsServer" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>
