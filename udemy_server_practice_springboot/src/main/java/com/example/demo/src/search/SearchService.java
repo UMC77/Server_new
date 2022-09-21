@@ -29,6 +29,7 @@ public class SearchService {
             List<SearchRes> searchRes = searchDao.search(searchReq.getSearch_word());
             return searchRes;
         } catch (Exception exception){
+            System.out.println(exception);
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
         }
     }

@@ -20,7 +20,7 @@ public class ManageDao {
 
     //리뷰 입력
     public void inputReview(ReviewReq reviewReq){
-        String inputReviewQuery = "INSERT INTO store_review(review_store_name, review_score, review_comment, review_date, review_user_nickname, review_menu, review_user_profile) VALUES(?,?,?,?,?,?,?)";
+        String inputReviewQuery = "INSERT INTO store_review2(store_name, review_score, review_comment, review_date, user_nickname, review_menu, user_profile) VALUES(?,?,?,?,?,?,?)";
         Object[] inputReviewParams = new Object[]{reviewReq.getStore_name(), reviewReq.getReview_score(), reviewReq.getReview_comment(), reviewReq.getReview_date(), reviewReq.getUser_nickname(), reviewReq.getReview_menu(), reviewReq.getUser_profile()};
         this.jdbcTemplate.update(inputReviewQuery, inputReviewParams);
 
@@ -28,7 +28,7 @@ public class ManageDao {
 
     //리뷰 반환
     public List<ReviewRes> getReview(String store_name){
-        String getReviewQuery = "select review_store_name, review_score, review_comment, review_date, review_user_nickname, review_user_profile, review_menu FROM store_review WHERE review_store_name = ?";
+        String getReviewQuery = "select store_name, review_score, review_comment, review_date, user_nickname, user_profile, review_menu FROM store_review2 WHERE store_name = ?";
         String getReviewParam = store_name;
 
         return this.jdbcTemplate.query(getReviewQuery,
@@ -36,7 +36,7 @@ public class ManageDao {
                         rs.getString("store_name"),
                         rs.getFloat("review_score"),
                         rs.getString("review_comment"),
-                        rs.getTimestamp("review_date"),
+                        rs.getDate("review_date"),
                         rs.getString("user_nickname"),
                         rs.getString("user_profile"),
                         rs.getString("review_menu")
@@ -52,9 +52,9 @@ public class ManageDao {
     }
 
     //예약 반환
-    public List<ReserveRes> getReserve(String store_name, String user_nickname){
+    public List<ReserveRes> getReserve(String store_name1, String user_nickname){
         String getReserveQuery = "select reserve_store_name, reserve_type, reserve_menu, reserve_price, reserve_user_nick_name, reserve_time FROM store_reserve WHERE reserve_store_name = ?";
-        String getReserveParam = user_nickname;
+        String getReserveParam = store_name1;
         return this.jdbcTemplate.query(getReserveQuery,
                 (rs, rowNum) -> new ReserveRes(
                         rs.getString("store_name"),

@@ -114,17 +114,17 @@ public class ManageController {
     // 서버 -> 앱 예약 (가게명과 유저 닉네임 body로 입력받기)
     @ResponseBody
     @GetMapping("/reserve")
-    public BaseResponse<List<ReserveRes>> getReserve(@RequestBody String store_name, String user_nickname){
+    public BaseResponse<List<ReserveRes>> getReserve(@RequestBody Reserveinfo reserveinfo){
         //빵집 이름 공백 체크
-        if(store_name == null)
+        if(reserveinfo.getStore_name() == null)
             return new BaseResponse<>(BaseResponseStatus.REVIEW_STORE_EMPTY);
 
         //유저 닉네임 공백 체크
-        if(user_nickname == null)
+        if(reserveinfo.getUser_nickname() == null)
             return new BaseResponse<>(BaseResponseStatus.REVIEW_NICKNAME_EMPTY);
 
         try{
-            List<ReserveRes> reserveRes = manageService.getReserve(store_name, user_nickname);
+            List<ReserveRes> reserveRes = manageService.getReserve(reserveinfo);
             return new BaseResponse<>(reserveRes);
         } catch (BaseException exception){
             return new BaseResponse<>((exception.getStatus()));

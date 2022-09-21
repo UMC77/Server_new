@@ -32,6 +32,7 @@ public class ManageService {
         try{
             manageDao.inputReview(reviewReq);
         } catch (Exception exception){
+            System.out.println(exception);
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
         }
     }
@@ -42,6 +43,7 @@ public class ManageService {
             List<ReviewRes> reviewRes = manageDao.getReview(store_name);
             return reviewRes;
         } catch (Exception exception){
+            System.out.println(exception);
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
         }
     }
@@ -51,16 +53,19 @@ public class ManageService {
         try {
             manageDao.inputReserve(reserveReq);
         } catch (Exception exception){
+            System.out.println(exception);
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
         }
     }
 
     //예약 반환
-    public List<ReserveRes> getReserve(String store_name, String user_nickname) throws BaseException{
+    public List<ReserveRes> getReserve(Reserveinfo reserveinfo) throws BaseException{
         try{
-            List<ReserveRes> reserveRes = manageDao.getReserve(store_name, user_nickname);
+            List<ReserveRes> reserveRes = manageDao.getReserve(reserveinfo.getStore_name(), reserveinfo.getUser_nickname());
             return reserveRes;
         } catch (Exception exception){
+            System.out.println(exception);
+            System.out.println(reserveinfo.getStore_name());
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
         }
     }
@@ -70,6 +75,7 @@ public class ManageService {
         try{
             manageDao.inputDib(dibReq);
         } catch (Exception exception){
+            System.out.println(exception);
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
         }
     }
@@ -80,6 +86,7 @@ public class ManageService {
             List<DibRes> dibRes = manageDao.getDib(user_nickname);
             return dibRes;
         } catch (Exception exception){
+            System.out.println(exception);
             throw new BaseException(BaseResponseStatus.DATABASE_ERROR.DATABASE_ERROR);
         }
     }

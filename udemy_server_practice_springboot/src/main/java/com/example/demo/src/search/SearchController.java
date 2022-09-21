@@ -26,13 +26,13 @@ public class SearchController {
     private final JwtService jwtService;
 
 
-    public UserController(SearchProvider searchProvider, SearchService searchService, JwtService jwtService) {
+    public SearchController(SearchProvider searchProvider, SearchService searchService, JwtService jwtService) {
         this.searchProvider = searchProvider;
         this.searchService = searchService;
         this.jwtService = jwtService;
     }
 
-    @RequestParam
+    @ResponseBody
     @GetMapping("")
     public BaseResponse<List<SearchRes>> search(@RequestBody SearchReq searchReq){
         try {
