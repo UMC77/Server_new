@@ -8,5 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PatchReviewReplyReq {
-    private String modify_review_reply;    //리뷰 댓글
+    private int review_idx; //리뷰 인덱스
+    private String review_reply;    //리뷰 댓글
 }

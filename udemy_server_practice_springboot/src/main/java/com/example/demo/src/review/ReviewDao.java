@@ -1,96 +1,117 @@
-//package com.example.demo.src.review;
-//
-//
-//import com.example.demo.src.menu.model.GetCategoryMenuRes;
-//import com.example.demo.src.menu.model.GetMenuRes;
-//import com.example.demo.src.review.model.*;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.jdbc.core.JdbcTemplate;
-//import org.springframework.stereotype.Repository;
-//
-//import javax.sql.DataSource;
-//import java.util.List;
-//
-//@Repository
-//public class ReviewDao {
-//
-//    private JdbcTemplate jdbcTemplate;
-//
-//    @Autowired
-//    public void setDataSource(DataSource dataSource){
-//        this.jdbcTemplate = new JdbcTemplate(dataSource);
-//    }
-//
-//    // 리뷰 조회
-//    public List<GetReviewRes> getReview(int menu_store_idx, String type){
-//        String getCategoryMenuQuery="";
-//        if(type.equals("all")) getCategoryMenuQuery = "select distinct sc.category_name as category_name, sc.category_idx as category_idx from store_menu as sm join store_category as sc on sc.category_idx=sm.menu_category_idx where menu_store_idx=? and menu_status='ACTIVE'";
-//        else if(type.equals("sale")) getCategoryMenuQuery = "select distinct sc.category_name as category_name, sc.category_idx as category_idx from store_menu as sm join store_category as sc on sc.category_idx=sm.menu_category_idx where menu_store_idx=? and menu_sale_chk='sale' and menu_status='ACTIVE'";
-//        else if(type.equals("soldOut")) getCategoryMenuQuery = "select distinct sc.category_name as category_name, sc.category_idx as category_idx from store_menu as sm join store_category as sc on sc.category_idx=sm.menu_category_idx where menu_store_idx=? and menu_sale_chk='soldOut' and menu_status='ACTIVE'";
-//        else if(type.equals("hide")) getCategoryMenuQuery = "select distinct sc.category_name as category_name, sc.category_idx as category_idx from store_menu as sm join store_category as sc on sc.category_idx=sm.menu_category_idx where menu_store_idx=? and menu_sale_chk='hide' and menu_status='ACTIVE'";
-//
-//        String getMenuQuery="select menu_idx, menu_img_url, menu_name, menu_price, menu_sale_chk from store_menu where menu_category_idx=? and menu_status='ACTIVE'";
-//
-//        int getCategoryMenuParams = menu_store_idx;
-//
-//        return this.jdbcTemplate.query(getCategoryMenuQuery,
-//                (rs, rowNum) -> new GetCategoryMenuRes(
-//                        rs.getString("category_name"),
-//                        getMenuRes = this.jdbcTemplate.query(getMenuQuery,
-//                                (rk, rownum) -> new GetMenuRes(
-//                                        rk.getInt("menu_idx"),
-//                                        rk.getString("menu_img_url"),
-//                                        rk.getString("menu_name"),
-//                                        rk.getInt("menu_price"),
-//                                        rk.getString("menu_sale_chk")
-//                                )
-//                                ,rs.getInt("category_idx"))
-//                )
-//                ,getCategoryMenuParams);
-//    }
-//
-////    // <1>
-////    public int updateReviewReply(PatchReviewReplyReq patchReviewReplyReq){
-////        String updateReviewReplyQuery = "update store_review set review_reply = ?, review_reply_status = 'complete' where review_idx = ? ";
-////        Object[] updateReviewReplyParams = new Object[]{patchReviewReplyReq.getReview_reply(), patchReviewReplyReq.getReview_reply_status(), patchReviewReplyReq.getReview_idx()};
-////
-////        return this.jdbcTemplate.update(updateReviewReplyQuery,updateReviewReplyParams);
-////    }
-//
-//    // <2>
-//    public int checkStoreExist(int store_idx){
-//        String checkStoreExistQuery = "select exists(select store_idx from store where store_idx = ?)";
-//        int checkStoreExistParams = store_idx;
-//        return this.jdbcTemplate.queryForObject(checkStoreExistQuery,
-//                int.class,
-//                checkStoreExistParams);
-//    }
-//
-//    // <3>
-//    public int checkReviewExist(int review_idx){
-//        String checkReviewExistQuery = "select exists(select review_idx from store_review where review_idx = ?)";
-//        int checkReviewExistParams = review_idx;
-//        return this.jdbcTemplate.queryForObject(checkReviewExistQuery,
-//                int.class,
-//                checkReviewExistParams);
-//    }
-//
-//    // <4>
-//    public int checkStoreReviewExist(int review_idx){
-//        String checkStoreReviewExistQuery = "select exists(select review_store_idx from store_review where review_idx = ?)";
-//        int checkStoreReviewExistParams = review_idx;
-//        return this.jdbcTemplate.queryForObject(checkStoreReviewExistQuery,
-//                int.class,
-//                checkStoreReviewExistParams);
-//
-//    }
-//
-////    // <5>
-////    public int deleteReviewReply(DeleteReviewReplyReq deleteReviewReplyReq){
-////        String deleteReviewReplyQuery = "update store_review set review_reply_status = 'wait', review_reply = NULL where review_idx = ? ";
-////        Object[] deleteReviewReplyParams = new Object[]{deleteReviewReplyReq.getReview_reply_status(), deleteReviewReplyReq.getReview_reply(), deleteReviewReplyReq.getReview_idx()};
-////
-////        return this.jdbcTemplate.update(deleteReviewReplyQuery,deleteReviewReplyParams);
-////    }
-//
-//}
+package com.example.demo.src.review;
+
+
+import com.example.demo.src.menu.model.GetCategoryMenuRes;
+import com.example.demo.src.menu.model.GetMenuRes;
+import com.example.demo.src.review.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import javax.sql.DataSource;
+import java.util.List;
+
+
+@Repository
+public class ReviewDao {
+
+    private JdbcTemplate jdbcTemplate;
+
+    List<GetReviewTypeRes> getReviewTypeRes;
+
+    @Autowired
+    public void setDataSource(DataSource dataSource){
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    // 리뷰 조회
+    public List<GetReviewRes> getReview(int store_idx){
+        String getReviewCntQuery="select count(*) as total_review_cnt,count(case when review_reply_status='complete' then 1 end) as reply_review_cnt, count(case when review_reply_status='wait' then 1 end) as wait_review_cnt from store_review where review_store_idx=?;";
+
+        String getReviewQuery="select review_idx,replace(review_user_nickname, substr(review_user_nickname, char_length(review_user_nickname)-1, 1), '*') user_id, review_date as review_time, review_score, review_menu, review_order_num, review_img_url, review_comment\n" +
+                "from store_review where review_store_idx=?;";
+
+        return this.jdbcTemplate.query(getReviewCntQuery,
+                (rs, rowNum) -> new GetReviewRes(
+                        rs.getInt("total_review_cnt"),
+                        rs.getInt("reply_review_cnt"),
+                        rs.getInt("wait_review_cnt"),
+                        getReviewTypeRes = this.jdbcTemplate.query(getReviewQuery,
+                                (rk, rownum) -> new GetReviewTypeRes(
+                                        rk.getInt("review_idx"),
+                                        rk.getString("user_id"),
+                                        rk.getString("review_time"),
+                                        rk.getFloat("review_score"),
+                                        rk.getString("review_menu"),
+                                        rk.getInt("review_order_num"),
+                                        rk.getString("review_img_url"),
+                                        rk.getString("review_comment")
+                                )
+                        ,store_idx)
+                )
+                ,store_idx);
+    }
+
+    // 상태별 리뷰 조회
+    public List<GetReviewTypeRes> getReviewType(int store_idx, String type){
+        String getReviewTypeQuery="";
+        if(type.equals("all")) {
+            getReviewTypeQuery = "select review_idx,replace(review_user_nickname, substr(review_user_nickname, char_length(review_user_nickname)-1, 1), '*') user_id, review_date as review_time, review_score, review_menu, review_order_num, review_img_url, review_comment\n" +
+                    "from store_review where review_store_idx=?;";
+        }
+        else {
+            getReviewTypeQuery= "select review_idx,replace(review_user_nickname, substr(review_user_nickname, char_length(review_user_nickname)-1, 1), '*') user_id, review_date as review_time, review_score, review_menu, review_order_num, review_img_url, review_comment from store_review where review_store_idx=? and review_reply_status=?;";
+        }
+
+        Object[] getReviewTypeParams = new Object[]{store_idx,type };
+
+
+        return this.jdbcTemplate.query(getReviewTypeQuery,
+                (rs, rowNum) -> new GetReviewTypeRes(
+                        rs.getInt("review_idx"),
+                        rs.getString("user_id"),
+                        rs.getString("review_time"),
+                        rs.getFloat("review_score"),
+                        rs.getString("review_menu"),
+                        rs.getInt("review_order_num"),
+                        rs.getString("review_img_url"),
+                        rs.getString("review_comment")
+                )
+        ,getReviewTypeParams);
+    }
+
+    // 리뷰 답변 업로드
+    public int updateReviewReply(PatchReviewReplyReq patchReviewReplyReq){
+        String updateReviewReplyQuery = "update store_review set review_reply = ?, review_reply_status = 'complete' where review_idx = ? ";
+        Object[] updateReviewReplyParams = new Object[]{patchReviewReplyReq.getReview_reply(), patchReviewReplyReq.getReview_idx()};
+
+        return this.jdbcTemplate.update(updateReviewReplyQuery,updateReviewReplyParams);
+    }
+
+    // <2>
+    public int checkStoreExist(int store_idx){
+        String checkStoreExistQuery = "select exists(select store_idx from store where store_idx = ?)";
+        int checkStoreExistParams = store_idx;
+        return this.jdbcTemplate.queryForObject(checkStoreExistQuery,
+                int.class,
+                checkStoreExistParams);
+    }
+
+    // <3>
+    public int checkReviewExist(int review_idx){
+        String checkReviewExistQuery = "select exists(select review_idx from store_review where review_idx = ?)";
+        int checkReviewExistParams = review_idx;
+        return this.jdbcTemplate.queryForObject(checkReviewExistQuery,
+                int.class,
+                checkReviewExistParams);
+    }
+
+
+    // 리뷰 답변 삭제
+    public int deleteReviewReply(int review_idx){
+        String deleteReviewReplyQuery = "update store_review set review_reply_status = 'wait', review_reply = NULL where review_idx = ? ";
+
+        return this.jdbcTemplate.update(deleteReviewReplyQuery,review_idx);
+    }
+
+}

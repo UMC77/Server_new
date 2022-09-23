@@ -74,8 +74,8 @@ com/example/demo/src/menu/model/PostCategoryReq.java
  com.example.demo.src.menu.model.PostCategoryReq
 com/example/demo/utils/SHA256.java
  com.example.demo.utils.SHA256
-com/example/demo/src/review/model/PatchReviewReplyReq.java
- com.example.demo.src.review.model.PatchReviewReplyReq
+com/example/demo/src/menu/model/GetCategoryMenuRes.java
+ com.example.demo.src.menu.model.GetCategoryMenuRes
 com/example/demo/src/menu/model/DeleteMenuReq.java
  com.example.demo.src.menu.model.DeleteMenuReq
 com/example/demo/src/menu/model/GetIngredientRes.java
@@ -110,17 +110,27 @@ com/example/demo/src/ceo/CeoController.java
  com.example.demo.src.ceo.CeoController
 com/example/demo/src/menu/model/GetCategoryRes.java
  com.example.demo.src.menu.model.GetCategoryRes
-com/example/demo/src/review/model/GetReviewRes.java
- com.example.demo.src.review.model.GetReviewRes
-com/example/demo/src/menu/model/GetCategoryMenuRes.java
- com.example.demo.src.menu.model.GetCategoryMenuRes
-com/example/demo/src/menu/model/GetMenuCntRes.java
- com.example.demo.src.menu.model.GetMenuCntRes
 com/example/demo/src/menu/MenuProvider.java
  com.example.demo.src.menu.MenuProvider
-com/example/demo/src/menu/MenuController.java
- com.example.demo.src.menu.MenuController
-com/example/demo/src/menu/MenuService.java
- com.example.demo.src.menu.MenuService
+com/example/demo/src/review/model/PatchReviewReplyReq.java
+ com.example.demo.src.review.model.PatchReviewReplyReq
+com/example/demo/src/menu/model/GetMenuCntRes.java
+ com.example.demo.src.menu.model.GetMenuCntRes
 com/example/demo/src/menu/MenuDao.java
  com.example.demo.src.menu.MenuDao
+com/example/demo/src/menu/MenuController.java
+ com.example.demo.src.menu.MenuController
+com/example/demo/src/review/model/GetReviewTypeRes.java
+ com.example.demo.src.review.model.GetReviewTypeRes
+com/example/demo/src/menu/MenuService.java
+ com.example.demo.src.menu.MenuService
+com/example/demo/src/review/model/GetReviewRes.java
+ com.example.demo.src.review.model.GetReviewRes
+com/example/demo/src/review/ReviewDao.java
+ com.example.demo.src.review.ReviewDao
+com/example/demo/src/review/ReviewController.java
+ com.example.demo.src.review.ReviewController
+com/example/demo/src/review/ReviewProvider.java
+ com.example.demo.src.review.ReviewProvider
+com/example/demo/src/review/ReviewService.java
+ com.example.demo.src.review.ReviewService
