@@ -11,7 +11,10 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class GetReservationViewRes {
-    private String reservation_total_cnt;   //유형별 reservation 개수
+    private int reservation_wait_cnt;   //접수 대기 reservation 개수
+    private int reservation_comp_cnt;   //접수 완료 reservation 개수
+    private int reservation_cancel_cnt;   //취소 주문 reservation 개수
+    private int reservation_total_cnt;   //전체 reservation 개수
     private List<GetReservationRes> reservationList;    //reservation 리스트
 }
 

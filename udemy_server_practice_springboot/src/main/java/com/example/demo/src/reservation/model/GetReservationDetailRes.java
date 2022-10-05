@@ -13,12 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 public class GetReservationDetailRes {
     private int reservation_idx;   //예약 인덱스
-//    private int reservation_store_idx; //가게 인덱스
     private String user_name;  //예약자명
     private String reservation_time;   //예약 시간
     private int total_price;    //가격 합계
     private int total_menu;    //메뉴 수량 합계
-    private List<GetReservationMenuRes> reservation_menu;   //예약 메뉴, 수량, 금액 리스트
+    private List<GetReservationDetailMenuRes> reservation_menu;   //예약 메뉴, 수량, 금액 리스트
 
 }
 

@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class GetReservationRes {
     private int reservation_idx;   //예약 인덱스
-//    private int reservation_store_idx; //가게 인덱스
     private String reservation_time;   //예약 시간
     private String user_name;  //예약자명
     private int total_price;    //총 가격
