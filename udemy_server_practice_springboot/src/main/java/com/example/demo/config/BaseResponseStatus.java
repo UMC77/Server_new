@@ -149,10 +149,35 @@ public enum BaseResponseStatus {
 
 
     PASSWORD_ENCRYPTION_ERROR(false, 4040, "비밀번호 암호화에 실패하였습니다."),
-    PASSWORD_DECRYPTION_ERROR(false, 4041, "비밀번호 복호화에 실패하였습니다.");
+    PASSWORD_DECRYPTION_ERROR(false, 4041, "비밀번호 복호화에 실패하였습니다."),
 
 
     // 5000 : 필요시 만들어서 쓰세요
+    APP_USERS_EMPTY_USER_PASSWORD(false, 5001, "유저 비밀번호 값을 확인해주세요"),
+    APP_USERS_ERROR_USER_PASSWORD(false, 5002, "비밀번호가 다릅니다."),
+    APP_USERS_NOT_EXISTS_ID(false, 5003, "존재하지 않는 아이디 입니다."),
+
+    // [POST] /users
+    APP_POST_USERS_EMPTY_EMAIL(false, 5005, "이메일을 입력해주세요."),
+    APP_POST_USERS_INVALID_EMAIL(false, 5006, "이메일 형식을 확인해주세요."),
+    APP_POST_USERS_EXISTS_EMAIL(false,5007,"중복된 이메일입니다."),
+    APP_POST_USERS_EMPTY_PASSWORD(false, 5008, "비밀번호를 입력해주세요."),
+    APP_POST_USERS_EMPTY_NICKNAME(false, 5009, "닉네임을 입력해주세요."),
+    APP_POST_USERS_EXISTS_NICKNAME(false, 5010, "중복된 닉네임 입니다."),
+    APP_POST_USERS_EMPTY_PHONENUM(false, 5012, "전화번호를 입력해주세요."),
+
+
+
+    APP_PATCH_USERS_EMPTY_MODIFY_PROFILE(false, 5013, "변경할 프로필을 선택해주세요."),
+    SEARCH_WORD_EMPTY(false,5014,"검색어를 입력하세요."),
+
+    REVIEW_STORE_EMPTY(false, 5015, "빵집 이름을 입력하세요."),
+    REVIEW_SCORE_EMPTY(false, 5016, "별점을 입력하세요."),
+    REVIEW_NICKNAME_EMPTY(false, 5017, "닉네임을 입력하세요."),
+    RESERVE_RESERVE_EMPTY(false, 5018, "예약유형을 입력하세요."),
+    RESERVE_MENU_EMPTY(false, 5019, "예약 메뉴를 입력하세요."),
+    RESERVE_TIME_EMPTY(false, 5020, "예약 시간을 입력하세요.");
+
     // 6000 : 필요시 만들어서 쓰세요
 
 
